@@ -166,10 +166,10 @@ function SentenceWall({ summary }: { summary: WallSummary }) {
               <section className="sentence-group" key={group.title}>
                 <h2 className="sentence-group-title">{group.title}</h2>
                 <div className="quote-cloud sentence-quotes">
-                  {group.sentences.map((sentence) => (
+                  {group.sentences.map((sentence, index) => (
                     <span
                       className="quote sentence-quote"
-                      key={`${group.title}-${sentence}`}
+                      key={`${group.title}-${index}-${sentence}`}
                     >
                       {sentence}
                     </span>
