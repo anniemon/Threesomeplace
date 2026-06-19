@@ -422,14 +422,62 @@ a {
 .word-cloud {
   display: flex;
   flex-wrap: wrap;
+  align-content: center;
   align-items: center;
-  gap: 10px 16px;
-  margin-top: 12px;
+  justify-content: center;
+  gap: 14px 22px;
+  min-height: 180px;
+  margin-top: 18px;
+  padding: 14px 6px;
 }
 
 .wall-word {
+  display: inline-block;
   font-weight: 950;
-  line-height: 0.95;
+  letter-spacing: 0;
+  line-height: 0.9;
+  max-width: 100%;
+  overflow-wrap: break-word;
+  text-align: center;
+  white-space: normal;
+  word-break: keep-all;
+  will-change: transform;
+}
+
+.sentence-groups {
+  display: grid;
+  gap: 18px;
+  margin-top: 18px;
+}
+
+.sentence-group {
+  display: grid;
+  gap: 10px;
+}
+
+.sentence-group-title {
+  width: fit-content;
+  margin: 0;
+  padding: 7px 11px;
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
+  background: var(--paper);
+  box-shadow: 2px 2px 0 var(--shadow);
+  font-size: 14px;
+  font-weight: 950;
+  line-height: 1.15;
+}
+
+.sentence-quotes {
+  align-items: stretch;
+  margin-top: 0;
+}
+
+.sentence-quote {
+  display: flex;
+  flex: 1 1 190px;
+  align-items: center;
+  min-height: 74px;
 }
 
 .status-line {

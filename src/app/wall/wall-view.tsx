@@ -12,6 +12,8 @@ const colors = [
   "var(--green)",
 ];
 
+const rotations = [-4, 2, -1, 4, -3, 1, 3, -2];
+
 export function WallView() {
   const [summary, setSummary] = useState<WallSummary | null>(null);
   const [updatedAt, setUpdatedAt] = useState("");
@@ -107,13 +109,11 @@ function WeightedWords({
             <span
               className="wall-word"
               key={word.label}
-              style={{
-                color: colors[index % colors.length],
-                fontSize: `${Math.round(24 + (word.count / max) * 34)}px`,
-              }}
+              aria-label={`${word.label}, ${word.count}개 응답`}
+              title={`${word.label}: ${word.count}`}
+              style={getWordStyle(word.count, max, index)}
             >
               {word.label}
-              <small> {word.count}</small>
             </span>
           ))
         ) : (
@@ -125,47 +125,67 @@ function WeightedWords({
 }
 
 function SentenceWall({ summary }: { summary: WallSummary }) {
-  const hasSentences = Object.values(summary.sentences).some(
-    (sentences) => sentences.length > 0,
+  const sentenceGroups = [
+    {
+      title: "나는 ______이 중요하다",
+      sentences: summary.sentences.important,
+    },
+    {
+      title: "______은 각자 결정하고 싶다",
+      sentences: summary.sentences.decideSeparately,
+    },
+    {
+      title: "______ 전에는 알려주면 좋겠다",
+      sentences: summary.sentences.notifyBefore,
+    },
+    {
+      title: "아직 정의하고 싶지 않은 것은 ______이다",
+      sentences: summary.sentences.undefinedThing,
+    },
+  ];
+  const hasSentences = sentenceGroups.some(
+    (group) => group.sentences.length > 0,
   );
 
   return (
     <section className="wall-section">
       <span className="pill color-yellow">문장완성형 합의점검표</span>
-      <div className="quote-cloud">
+      <div className="sentence-groups">
         {hasSentences ? (
-          <>
-            {summary.sentences.important.map((sentence) => (
-              <span className="quote" key={`important-${sentence}`}>
-                <small>나는 ______이 중요하다</small>
-                {sentence}
-              </span>
-            ))}
-            {summary.sentences.decideSeparately.map((sentence) => (
-              <span className="quote" key={`decide-${sentence}`}>
-                <small>______은 각자 결정하고 싶다</small>
-                {sentence}
-              </span>
-            ))}
-            {summary.sentences.notifyBefore.map((sentence) => (
-              <span className="quote" key={`notify-${sentence}`}>
-                <small>______ 전에는 알려주면 좋겠다</small>
-                {sentence}
-              </span>
-            ))}
-            {summary.sentences.undefinedThing.map((sentence) => (
-              <span className="quote" key={`undefined-${sentence}`}>
-                <small>아직 정의하고 싶지 않은 것은</small>
-                {sentence}
-              </span>
-            ))}
-          </>
+          sentenceGroups
+            .filter((group) => group.sentences.length > 0)
+            .map((group) => (
+              <section className="sentence-group" key={group.title}>
+                <h2 className="sentence-group-title">{group.title}</h2>
+                <div className="quote-cloud sentence-quotes">
+                  {group.sentences.map((sentence) => (
+                    <span
+                      className="quote sentence-quote"
+                      key={`${group.title}-${sentence}`}
+                    >
+                      {sentence}
+                    </span>
+                  ))}
+                </div>
+              </section>
+            ))
         ) : (
           <span className="status-line">아직 문장 응답이 없어요.</span>
         )}
       </div>
     </section>
   );
+}
+
+function getWordStyle(count: number, max: number, index: number) {
+  const weight = count / max;
+  const size = Math.round(34 + weight * 48);
+
+  return {
+    color: colors[index % colors.length],
+    fontSize: `${size}px`,
+    transform: `rotate(${rotations[index % rotations.length]}deg)`,
+  };
 }
 
 function LoadingWall({ message }: { message: string }) {
