@@ -230,6 +230,7 @@
       }
 
       .chip {
+        position: relative;
         padding: 9px 12px;
         border: 1.5px solid var(--ink);
         border-radius: 999px;
@@ -238,6 +239,32 @@
         font-weight: 850;
         font-size: 14px;
         line-height: 1.15;
+      }
+
+      .chip.selected {
+        border-width: 2px;
+        box-shadow:
+          0 0 0 3px rgba(253, 241, 90, 0.9),
+          4px 4px 0 var(--ink);
+        transform: translate(-1px, -1px) scale(1.02);
+      }
+
+      .chip.selected::after {
+        content: "✓";
+        position: absolute;
+        top: -11px;
+        right: -8px;
+        display: grid;
+        place-items: center;
+        width: 24px;
+        height: 24px;
+        border: 1.5px solid var(--ink);
+        border-radius: 50%;
+        background: var(--yellow);
+        color: var(--ink);
+        font-size: 15px;
+        font-weight: 950;
+        line-height: 1;
       }
 
       .chip.hot {
@@ -567,16 +594,21 @@
             <div class="screen-body">
               <div class="step">질투 순간 고르기</div>
               <h2 class="question">
-                나는 <span class="blank"></span> 때 질투를 느낀다.
+                나는 파트너가 <span class="blank"></span> 때 질투를 느낀다.
               </h2>
               <div class="chips">
-                <span class="chip hot">파트너가 남다른 우정의 소유자일</span>
-                <span class="chip lime">파트너가 워커홀릭일</span>
-                <span class="chip yellow">파트너가 취미/덕질에 몰두할 때</span>
-                <span class="chip purple">파트너가 전애인 얘기할</span>
-                <span class="chip blue">파트너가 다른 사람과 있느라 연락이 없을</span>
-                <span class="chip orange">파트너가 원가족에 대한 애착이 강할</span>
-                <span class="chip green">파트너가 내 친구/지인을 잘 챙겨줄 때</span>
+                <span class="chip hot">남다른 우정의 소유자일</span>
+                <span class="chip lime">워커홀릭일</span>
+                <span class="chip yellow">취미/덕질에 몰두할</span>
+                <span class="chip purple">전애인 얘기할</span>
+                <span class="chip blue">다른 사람과 있느라 연락이 없을</span>
+                <span class="chip orange">원가족에 대한 애착이 강할</span>
+                <span class="chip green">내 친구/지인을 잘 챙겨줄</span>
+                <span class="chip hot">혼자만의 시간을 오래 원할</span>
+                <span class="chip lime selected">SNS에서 누군가와 친밀하게 반응할</span>
+                <span class="chip yellow">중요한 이야기를 나중에 공유할</span>
+                <span class="chip purple">약속을 갑자기 바꿀</span>
+                <span class="chip blue">새로운 사람에게 설레는 것처럼 보일</span>
               </div>
               <div class="input-pill">다른 질투 순간을 직접 넣어도 좋아요</div>
               <div class="meter">고른 순간이 다음 카드에서 필요한 언어로 이어지는 인터랙션</div>
@@ -598,11 +630,18 @@
               </h2>
               <div class="chips">
                 <span class="chip lime">충분한 정보</span>
+                <span class="chip green selected">솔직함</span>
                 <span class="chip hot">함께 보내는 시간</span>
-                <span class="chip yellow">애정 표현</span>
+                <span class="chip lime">유대감</span>
+                <span class="chip yellow">애정 표현/스킨십</span>
                 <span class="chip purple">예측 가능성</span>
+                <span class="chip hot">나의 존재감</span>
                 <span class="chip blue">중요한 사람이라는 확인</span>
+                <span class="chip yellow">내가 0순위라는 느낌</span>
                 <span class="chip orange">내 선택권</span>
+                <span class="chip purple">통제감</span>
+                <span class="chip blue">우월감</span>
+                <span class="chip green">안정감</span>
                 <span class="chip green">합의가 지켜졌다는 신뢰</span>
                 <span class="chip">혼자 진정할 시간</span>
                 <span class="chip">아직 모르겠음</span>
@@ -679,7 +718,7 @@
               <h2 class="result-title">나는 “확인과 선택권”을 섞는 사람</h2>
               <div class="bars">
                 <div class="bar"><span>함께하는 시간</span><div class="bar-track"><div class="bar-fill" style="width: 78%"></div></div><span>78</span></div>
-                <div class="bar"><span>애정 표현</span><div class="bar-track"><div class="bar-fill" style="width: 62%; background: var(--purple)"></div></div><span>62</span></div>
+                <div class="bar"><span>애정 표현/스킨십</span><div class="bar-track"><div class="bar-fill" style="width: 62%; background: var(--purple)"></div></div><span>62</span></div>
                 <div class="bar"><span>개인적인 공간과 시간</span><div class="bar-track"><div class="bar-fill" style="width: 47%; background: var(--lime)"></div></div><span>47</span></div>
               </div>
               <div class="quote-cloud">
@@ -715,7 +754,7 @@
             <div class="wall-section">
               <span class="wall-label jealousy">질투 통역소: 실제로 필요했던 것</span>
               <div class="wall-cloud">
-                <span class="word w3">애정 표현</span>
+                <span class="word w3">애정 표현/스킨십</span>
                 <span class="word w4">내 선택권</span>
                 <span class="word w6">합의의 신뢰</span>
               </div>

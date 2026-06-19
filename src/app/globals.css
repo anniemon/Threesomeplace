@@ -277,6 +277,7 @@ a {
 }
 
 .chip {
+  position: relative;
   min-height: 44px;
   padding: 9px 13px;
   border: 1.5px solid var(--ink);
@@ -289,8 +290,29 @@ a {
 }
 
 .chip.selected {
-  transform: translate(2px, 2px);
-  box-shadow: none;
+  border-width: 2px;
+  box-shadow:
+    0 0 0 3px rgba(253, 241, 90, 0.9),
+    4px 4px 0 var(--ink);
+  transform: translate(-1px, -1px) scale(1.02);
+}
+
+.chip.selected::after {
+  content: "✓";
+  position: absolute;
+  top: -11px;
+  right: -8px;
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border: 1.5px solid var(--ink);
+  border-radius: 50%;
+  background: var(--yellow);
+  color: var(--ink);
+  font-size: 15px;
+  font-weight: 950;
+  line-height: 1;
 }
 
 .color-pink {

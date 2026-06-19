@@ -116,7 +116,7 @@ export function PlayExperience() {
           title="질투 통역소"
           prompt={
             <>
-              나는 <span className="blank" /> 때 질투를 느낀다.
+              나는 파트너가 <span className="blank" /> 때 질투를 느낀다.
             </>
           }
           options={jealousyTriggerOptions}

@@ -29,9 +29,9 @@ export const sampleWallSummary: WallSummary = {
   configured: false,
   total: 24,
   jealousyTriggers: [
-    { label: "파트너가 다른 사람과 있느라 연락이 없을", count: 16 },
-    { label: "파트너가 전애인 얘기할", count: 10 },
-    { label: "파트너가 취미/덕질에 몰두할 때", count: 8 },
+    { label: "다른 사람과 있느라 연락이 없을", count: 16 },
+    { label: "전애인 얘기할", count: 10 },
+    { label: "취미/덕질에 몰두할", count: 8 },
   ],
   relationshipAreas: [
     { label: "함께하는 시간", count: 18 },
@@ -41,7 +41,7 @@ export const sampleWallSummary: WallSummary = {
     { label: "가족·친구·SNS 공개 범위", count: 7 },
   ],
   jealousyNeeds: [
-    { label: "애정 표현", count: 15 },
+    { label: "애정 표현/스킨십", count: 15 },
     { label: "내 선택권", count: 11 },
     { label: "합의가 지켜졌다는 신뢰", count: 10 },
     { label: "충분한 정보", count: 8 },
