@@ -58,12 +58,6 @@ export function ResultView() {
     setCopied(true);
   }
 
-  async function copy() {
-    if (!shareUrl) return;
-    await navigator.clipboard.writeText(shareUrl);
-    setCopied(true);
-  }
-
   const relationshipLabels = [
     ...payload.relationshipAreas.map((id) => labelById(relationshipOptions, id)),
     payload.relationshipOther,
@@ -140,9 +134,6 @@ export function ResultView() {
       <div className="nav-row">
         <button className="button purple" type="button" onClick={share}>
           공유하기
-        </button>
-        <button className="button secondary" type="button" onClick={copy}>
-          링크 복사
         </button>
       </div>
       <div className="nav-row">
