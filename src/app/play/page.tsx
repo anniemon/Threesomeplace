@@ -14,7 +14,7 @@ export default function PlayPage() {
               플레이스
             </span>
           </Link>
-          <span className="pill">1 → 2 → 3 → 관계 레시피</span>
+          <span className="pill">1 → 2 → 3 → 관계 모양</span>
         </header>
         <PlayExperience />
       </div>

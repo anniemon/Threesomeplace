@@ -16,7 +16,7 @@
 
   <text x="1240" y="650" text-anchor="middle"
         font-family="Apple SD Gothic Neo, system-ui, sans-serif"
-        font-size="58" font-weight="800" fill="#302637">QR로 들어와 관계 믹서와 질투 통역소에 참여해보세요</text>
+        font-size="58" font-weight="800" fill="#302637">QR로 들어와 합의 영역 고르기와 질투 통역소에 참여해보세요</text>
 
   <rect x="430" y="850" width="1620" height="1620" rx="48" fill="#ffffff" stroke="#302637" stroke-width="10"/>
   <image href="threesomeplace-qr.png" x="490" y="910" width="1500" height="1500"/>

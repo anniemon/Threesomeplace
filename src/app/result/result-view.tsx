@@ -41,7 +41,7 @@ export function ResultContent({
     if (!shareUrl) return;
     if (navigator.share) {
       await navigator.share({
-        title: "나의 쓰리썸플레이스 관계 레시피",
+        title: "나의 쓰리썸플레이스 관계 모양",
         text: result?.recipeTitle,
         url: shareUrl,
       });
@@ -62,7 +62,7 @@ export function ResultContent({
 
   return (
     <section className="panel card">
-      <span className="pill">오늘의 관계 레시피</span>
+      <span className="pill">오늘의 관계 모양</span>
       <h1 className="recipe-title">{payload.recipeTitle}</h1>
       <div className="notice">
         {summary.map((line) => (
@@ -145,7 +145,7 @@ export function MissingResult() {
   return (
     <section className="panel card">
       <h1 className="question-title">결과를 찾지 못했어요</h1>
-      <p className="notice">공유 링크가 잘렸거나 아직 레시피를 만들지 않았을 수 있어요.</p>
+      <p className="notice">공유 링크가 잘렸거나 아직 관계 모양을 만들지 않았을 수 있어요.</p>
       <div className="nav-row">
         <Link className="button pink" href="/play">
           다시 하기

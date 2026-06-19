@@ -82,7 +82,7 @@ export function WallView() {
         {summary ? (
           <>
             <WeightedWords
-              title="관계 믹서: 꼭 합의하고 싶은 영역"
+              title="합의 영역 고르기: 꼭 합의하고 싶은 영역"
               words={summary.relationshipAreas}
             />
             <WeightedWords
@@ -208,7 +208,7 @@ function LoadingWall({ message }: { message: string }) {
 
   return (
     <>
-      <LoadingWordCloud title="관계 믹서: 꼭 합의하고 싶은 영역" />
+      <LoadingWordCloud title="합의 영역 고르기: 꼭 합의하고 싶은 영역" />
       <LoadingWordCloud title="질투 통역소: 실제로 필요했던 것" />
       <section className="wall-section">
         <span className="pill color-yellow">문장완성형 합의점검표</span>

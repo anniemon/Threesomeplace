@@ -11,7 +11,7 @@ Build a mobile-first web app for the booth activity. Participants enter from a Q
    - Link to the existing Tally pre-registration form as a secondary action.
 
 2. Participant flow `/play`
-   - Card 1: 관계 믹서
+   - Card 1: 합의 영역 고르기
      - Prompt: `내가 파트너와의 관계에서 꼭 합의하고 싶은 영역은 ___ 다.`
      - Multi-select chips plus an optional direct input.
    - Card 2: 질투 통역소

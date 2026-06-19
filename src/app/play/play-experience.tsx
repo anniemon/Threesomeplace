@@ -90,13 +90,13 @@ export function PlayExperience() {
       <div className="step-line">
         <span className="pill">카드 {step + 1} / 3</span>
         <span className="pill">
-          {step === 0 ? "관계 믹서" : step === 1 ? "질투 통역소" : "합의 점검표"}
+          {step === 0 ? "합의 영역 고르기" : step === 1 ? "질투 통역소" : "합의 점검표"}
         </span>
       </div>
 
       {step === 0 && (
         <ChoiceStep
-          title="관계 믹서"
+          title="합의 영역 고르기"
           prompt={
             <>
               내가 파트너와의 관계에서 꼭 합의하고 싶은 영역은{" "}
@@ -188,7 +188,7 @@ export function PlayExperience() {
             type="button"
             onClick={finish}
           >
-            {isSubmitting ? "제출 중" : "관계 레시피 보기"}
+            {isSubmitting ? "제출 중" : "관계 모양 보기"}
           </button>
         )}
       </div>

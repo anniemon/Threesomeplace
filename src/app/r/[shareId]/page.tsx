@@ -25,7 +25,7 @@ export default async function SharedResultPage({
               플레이스
             </span>
           </Link>
-          <span className="pill">오늘의 관계 레시피</span>
+          <span className="pill">오늘의 관계 모양</span>
         </header>
         {result ? <ResultContent result={result} sharePath={`/r/${shareId}`} /> : <MissingResult />}
       </div>

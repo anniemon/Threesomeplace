@@ -15,7 +15,7 @@ export default function ResultPage() {
               플레이스
             </span>
           </Link>
-          <span className="pill">오늘의 관계 레시피</span>
+          <span className="pill">오늘의 관계 모양</span>
         </header>
         <Suspense fallback={<div className="panel card">결과를 섞는 중</div>}>
           <ResultView />
