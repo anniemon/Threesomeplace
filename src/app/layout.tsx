@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "쓰리썸플레이스",
-  description: "독점도 비독점도 아닌 말을 섞는 현장 참여형 웹",
+  description: "내가 원하는 관계의 모양은 무엇일까?",
 };
 
 export default function RootLayout({

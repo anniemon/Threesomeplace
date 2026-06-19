@@ -131,10 +131,10 @@ export function ResultContent({
       </div>
       <div className="nav-row">
         <Link className="button secondary" href="/wall">
-          현장 전시 월 보기
+          다른 사람의 결과 보기
         </Link>
         <Link className="button" href="/play">
-          다시 섞기
+          다시 하기
         </Link>
       </div>
     </section>
@@ -148,7 +148,7 @@ export function MissingResult() {
       <p className="notice">공유 링크가 잘렸거나 아직 레시피를 만들지 않았을 수 있어요.</p>
       <div className="nav-row">
         <Link className="button pink" href="/play">
-          다시 섞기
+          다시 하기
         </Link>
         <Link className="button secondary" href="/">
           처음으로

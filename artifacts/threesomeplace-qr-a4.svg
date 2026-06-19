@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2480" height="3508" viewBox="0 0 2480 3508">
+  <rect width="2480" height="3508" fill="#fffdf1"/>
+  <rect x="0" y="0" width="2480" height="260" fill="#ff4fa3"/>
+  <rect x="0" y="260" width="2480" height="54" fill="#caff2f"/>
+  <rect x="0" y="3198" width="2480" height="310" fill="#8b43ff"/>
+  <circle cx="2140" cy="510" r="210" fill="#fff14a"/>
+  <circle cx="310" cy="2850" r="170" fill="#caff2f"/>
+
+  <text x="1240" y="155" text-anchor="middle"
+        font-family="Apple SD Gothic Neo, system-ui, sans-serif"
+        font-size="118" font-weight="900" fill="#fffdf1">쓰리썸플레이스</text>
+
+  <text x="1240" y="520" text-anchor="middle"
+        font-family="Apple SD Gothic Neo, system-ui, sans-serif"
+        font-size="96" font-weight="900" fill="#302637">내가 원하는 관계의 모양을 알아보는 시간</text>
+
+  <text x="1240" y="650" text-anchor="middle"
+        font-family="Apple SD Gothic Neo, system-ui, sans-serif"
+        font-size="58" font-weight="800" fill="#302637">QR로 들어와 관계 믹서와 질투 통역소에 참여해보세요</text>
+
+  <rect x="430" y="850" width="1620" height="1620" rx="48" fill="#ffffff" stroke="#302637" stroke-width="10"/>
+  <image href="threesomeplace-qr.png" x="490" y="910" width="1500" height="1500"/>
+
+  <text x="1240" y="2660" text-anchor="middle"
+        font-family="Apple SD Gothic Neo, system-ui, sans-serif"
+        font-size="74" font-weight="900" fill="#302637">스캔해서 바로 참여하기</text>
+
+  <text x="1240" y="2770" text-anchor="middle"
+        font-family="Apple SD Gothic Neo, system-ui, sans-serif"
+        font-size="50" font-weight="800" fill="#302637">https://threesomeplace.vercel.app/</text>
+
+  <text x="1240" y="3335" text-anchor="middle"
+        font-family="Apple SD Gothic Neo, system-ui, sans-serif"
+        font-size="58" font-weight="900" fill="#fffdf1">3분 참여 · 익명 집계 · 링크 공유</text>
+</svg>

@@ -188,7 +188,7 @@ export function PlayExperience() {
             type="button"
             onClick={finish}
           >
-            {isSubmitting ? "섞는 중" : "관계 레시피 보기"}
+            {isSubmitting ? "제출 중" : "관계 레시피 보기"}
           </button>
         )}
       </div>

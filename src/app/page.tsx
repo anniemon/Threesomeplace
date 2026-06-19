@@ -14,16 +14,16 @@ export default function Home() {
               플레이스
             </span>
           </Link>
-          <span className="pill">여성민우회 현장 참여형 웹</span>
+          <span className="pill">참여형 설문</span>
         </header>
 
         <section className="hero-grid">
           <div className="panel hero-copy">
-            <h1 className="hero-title">독점도 비독점도 아닌 말을 섞는 곳</h1>
+            <h1 className="hero-title">내가 원하는 <br / > 관계의 모양은 무엇일까?</h1>
             <p className="hero-text">
-              관계 믹서, 질투 통역소, 합의 문장을 지나 나의 관계 레시피를
-              만들어보세요. 결과는 링크로 공유할 수 있고, 익명 응답은 현장 전시
-              월에 섞입니다.
+              내가 만들고 싶은 관계의 구성 요소를 직접 조립해보아요.
+              <br />
+              결과는 링크로 공유할 수 있어요.
             </p>
             <p className="notice">
               이름이나 연락처는 묻지 않습니다. 제출한 선택지와 문장은 익명 집계와
@@ -41,10 +41,10 @@ export default function Home() {
             </strong>
             <div className="result-layout">
               <Link className="button" href="/play">
-                섞으러 가기
+                참여하기
               </Link>
               <a className="button secondary" href={tallyUrl} target="_blank">
-                사전 신청 폼 보기
+                고민 상담 신청 폼 보기
               </a>
             </div>
           </aside>
