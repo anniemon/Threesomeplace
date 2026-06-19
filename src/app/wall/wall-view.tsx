@@ -14,15 +14,6 @@ const colors = [
 
 const rotations = [-4, 2, -1, 4, -3, 1, 3, -2];
 
-const loadingWords = [
-  "불러오는 중",
-  "관계 언어",
-  "질투 순간",
-  "합의 요소",
-  "질투의 필요",
-  "익명 응답",
-];
-
 export function WallView() {
   const [summary, setSummary] = useState<WallSummary | null>(null);
   const [updatedAt, setUpdatedAt] = useState("");
@@ -64,6 +55,19 @@ export function WallView() {
     };
   }, []);
 
+  if (!summary) {
+    return (
+      <section className="panel wall-loading-panel">
+        <span className="pill color-yellow">
+          {errorMessage || "집계 데이터를 불러오는 중"}
+        </span>
+        {errorMessage && (
+          <p className="notice">환경변수와 Google Sheet 공유 권한을 확인한 뒤 새로고침해주세요.</p>
+        )}
+      </section>
+    );
+  }
+
   return (
     <section className="wall-grid">
       <div className="panel hero-copy">
@@ -73,32 +77,24 @@ export function WallView() {
           크기의 말풍선으로 놓입니다.
         </p>
         <p className="notice">
-          {summary
-            ? `총 ${summary.total}개의 익명 응답${updatedAt ? ` · ${updatedAt} 갱신` : ""}`
-            : "집계 데이터를 불러오는 중"}
+          총 {summary.total}개의 익명 응답{updatedAt ? ` · ${updatedAt} 갱신` : ""}
         </p>
       </div>
 
       <div className="panel wall-board">
-        {summary ? (
-          <>
-            <WeightedWords
-              title="질투 통역소: 질투를 느끼는 순간"
-              words={summary.jealousyTriggers}
-            />
-            <WeightedWords
-              title="질투 통역소: 실제로 필요했던 것"
-              words={summary.jealousyNeeds}
-            />
-            <WeightedWords
-              title="합의 요소 고르기: 꼭 합의하고 싶은 요소"
-              words={summary.relationshipAreas}
-            />
-            <SentenceWall summary={summary} />
-          </>
-        ) : (
-          <LoadingWall message={errorMessage} />
-        )}
+        <WeightedWords
+          title="질투 통역소: 질투를 느끼는 순간"
+          words={summary.jealousyTriggers}
+        />
+        <WeightedWords
+          title="질투 통역소: 실제로 필요했던 것"
+          words={summary.jealousyNeeds}
+        />
+        <WeightedWords
+          title="합의 요소 고르기: 꼭 합의하고 싶은 요소"
+          words={summary.relationshipAreas}
+        />
+        <SentenceWall summary={summary} />
       </div>
     </section>
   );
@@ -207,67 +203,4 @@ function getWordStyle(count: number, max: number, index: number) {
     fontSize: `${size}px`,
     transform: `rotate(${rotations[index % rotations.length]}deg)`,
   };
-}
-
-function LoadingWall({ message }: { message: string }) {
-  if (message) {
-    return (
-      <section className="wall-section">
-        <span className="pill color-yellow">{message}</span>
-        <p className="notice">환경변수와 Google Sheet 공유 권한을 확인한 뒤 새로고침해주세요.</p>
-      </section>
-    );
-  }
-
-  return (
-    <>
-      <LoadingWordCloud title="질투 통역소: 질투를 느끼는 순간" />
-      <LoadingWordCloud title="질투 통역소: 실제로 필요했던 것" />
-      <LoadingWordCloud title="합의 요소 고르기: 꼭 합의하고 싶은 요소" />
-      <section className="wall-section">
-        <span className="pill color-yellow">문장완성형 합의점검표</span>
-        <div className="sentence-groups" aria-hidden="true">
-          {[
-            "나는 ______이(가) 중요하다",
-            "______은(는) 각자 결정하고 싶다",
-            "______(은)는 꼭 함께 하고 싶다",
-            "______ 전에는 알려주면 좋겠다",
-            "아직 정의하고 싶지 않은 것은 ______(이)다",
-            "나는 파트너에게 ______ 이고 싶다",
-          ].map((title) => (
-            <section className="sentence-group" key={title}>
-              <h2 className="sentence-group-title">{title}</h2>
-              <div className="quote-cloud sentence-quotes">
-                <span className="quote sentence-quote skeleton-quote" />
-                <span className="quote sentence-quote skeleton-quote" />
-              </div>
-            </section>
-          ))}
-        </div>
-      </section>
-    </>
-  );
-}
-
-function LoadingWordCloud({ title }: { title: string }) {
-  return (
-    <section className="wall-section" aria-hidden="true">
-      <span className="pill color-lime">{title}</span>
-      <div className="word-cloud loading-word-cloud">
-        {loadingWords.map((word, index) => (
-          <span
-            className="wall-word skeleton-word"
-            key={`${title}-${word}`}
-            style={{
-              color: colors[index % colors.length],
-              fontSize: `${42 + index * 8}px`,
-              transform: `rotate(${rotations[index % rotations.length]}deg)`,
-            }}
-          >
-            {word}
-          </span>
-        ))}
-      </div>
-    </section>
-  );
 }

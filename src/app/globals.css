@@ -468,6 +468,13 @@ a {
   padding: clamp(16px, 2.4vw, 26px);
 }
 
+.wall-loading-panel {
+  display: grid;
+  place-items: center;
+  min-height: 420px;
+  padding: clamp(18px, 4vw, 34px);
+}
+
 .wall-container .hero-copy {
   padding: clamp(18px, 3vw, 28px);
 }
@@ -497,10 +504,6 @@ a {
   min-height: 180px;
   margin-top: 18px;
   padding: 14px 6px;
-}
-
-.loading-word-cloud {
-  opacity: 0.42;
 }
 
 .wall-word {
@@ -550,26 +553,6 @@ a {
   flex: 1 1 190px;
   align-items: center;
   min-height: 74px;
-}
-
-.skeleton-word,
-.skeleton-quote {
-  animation: wall-pulse 1.4s ease-in-out infinite alternate;
-}
-
-.skeleton-quote {
-  min-width: 180px;
-  background: var(--yellow);
-}
-
-@keyframes wall-pulse {
-  from {
-    opacity: 0.35;
-  }
-
-  to {
-    opacity: 0.75;
-  }
 }
 
 .status-line {
