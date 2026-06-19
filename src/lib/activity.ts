@@ -6,6 +6,7 @@ export type ChoiceOption = {
 
 export type SubmissionPayload = {
   sessionId: string;
+  shareId?: string;
   relationshipAreas: string[];
   relationshipOther: string;
   jealousyNeeds: string[];

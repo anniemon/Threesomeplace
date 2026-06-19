@@ -3,6 +3,7 @@ import "server-only";
 import { google, sheets_v4 } from "googleapis";
 import { sheetHeaders, type SheetRow } from "./wall";
 import type { SubmissionPayload } from "./activity";
+import type { SharePayload } from "./result-code";
 
 let sheetsClient: sheets_v4.Sheets | null = null;
 
@@ -38,7 +39,7 @@ export async function appendSubmission(payload: SubmissionPayload) {
 
   await sheets.spreadsheets.values.append({
     spreadsheetId,
-    range: `${sheetName}!A:K`,
+    range: `${sheetName}!A:L`,
     valueInputOption: "RAW",
     requestBody: {
       values: [
@@ -54,6 +55,7 @@ export async function appendSubmission(payload: SubmissionPayload) {
           payload.sentences.notifyBefore,
           payload.sentences.undefinedThing,
           payload.recipeTitle,
+          payload.shareId ?? "",
         ],
       ],
     },
@@ -66,12 +68,33 @@ export async function readSubmissionRows(): Promise<SheetRow[]> {
 
   const response = await sheets.spreadsheets.values.get({
     spreadsheetId,
-    range: `${sheetName}!A2:K`,
+    range: `${sheetName}!A2:L`,
   });
 
   return (response.data.values ?? []).map((row) =>
     Object.fromEntries(sheetHeaders.map((header, index) => [header, row[index] ?? ""])),
   ) as SheetRow[];
+}
+
+export async function readSubmissionByShareId(shareId: string): Promise<SharePayload | null> {
+  const rows = await readSubmissionRows();
+  const row = rows.findLast((item) => item.shareId === shareId);
+  if (!row) return null;
+
+  return {
+    shareId: row.shareId,
+    relationshipAreas: splitCell(row.relationshipAreas),
+    relationshipOther: row.relationshipOther,
+    jealousyNeeds: splitCell(row.jealousyNeeds),
+    jealousyOther: row.jealousyOther,
+    sentences: {
+      important: row.important,
+      decideSeparately: row.decideSeparately,
+      notifyBefore: row.notifyBefore,
+      undefinedThing: row.undefinedThing,
+    },
+    recipeTitle: row.recipeTitle,
+  };
 }
 
 async function ensureSheet(sheets: sheets_v4.Sheets) {
@@ -91,15 +114,27 @@ async function ensureSheet(sheets: sheets_v4.Sheets) {
 
   const headers = await sheets.spreadsheets.values.get({
     spreadsheetId,
-    range: `${sheetName}!A1:K1`,
+    range: `${sheetName}!A1:L1`,
   });
 
-  if (!headers.data.values?.[0]?.length) {
+  const currentHeaders = headers.data.values?.[0] ?? [];
+  const needsHeaderUpdate = sheetHeaders.some(
+    (header, index) => currentHeaders[index] !== header,
+  );
+
+  if (!currentHeaders.length || needsHeaderUpdate) {
     await sheets.spreadsheets.values.update({
       spreadsheetId,
-      range: `${sheetName}!A1:K1`,
+      range: `${sheetName}!A1:L1`,
       valueInputOption: "RAW",
       requestBody: { values: [sheetHeaders] },
     });
   }
+}
+
+function splitCell(value: string) {
+  return value
+    .split("|")
+    .map((item) => item.trim())
+    .filter(Boolean);
 }

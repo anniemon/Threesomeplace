@@ -17,6 +17,7 @@ export const sheetHeaders = [
   "notifyBefore",
   "undefinedThing",
   "recipeTitle",
+  "shareId",
 ];
 
 export type SheetRow = Record<(typeof sheetHeaders)[number], string>;

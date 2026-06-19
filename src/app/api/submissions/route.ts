@@ -43,6 +43,9 @@ function validateSubmission(payload: SubmissionPayload) {
   if (!payload.sessionId || typeof payload.sessionId !== "string") {
     return "Missing sessionId";
   }
+  if (payload.shareId && typeof payload.shareId !== "string") {
+    return "Invalid shareId";
+  }
   if (!Array.isArray(payload.relationshipAreas)) return "Invalid relationshipAreas";
   if (!Array.isArray(payload.jealousyNeeds)) return "Invalid jealousyNeeds";
   if (!payload.sentences || typeof payload.sentences !== "object") {

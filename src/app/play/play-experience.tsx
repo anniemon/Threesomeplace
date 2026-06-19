@@ -40,9 +40,11 @@ export function PlayExperience() {
   async function finish() {
     setIsSubmitting(true);
     setSubmitError("");
+    const shareId = createShareId();
 
     const payloadWithoutTitle = {
       sessionId: getSessionId(),
+      shareId,
       relationshipAreas,
       relationshipOther: relationshipOther.trim(),
       jealousyNeeds,
@@ -60,6 +62,8 @@ export function PlayExperience() {
       recipeTitle,
     });
 
+    let shortLinkIsAvailable = false;
+
     try {
       const response = await fetch("/api/submissions", {
         method: "POST",
@@ -70,10 +74,14 @@ export function PlayExperience() {
       if (!response.ok) {
         throw new Error("Submission failed");
       }
+      const body = (await response.json()) as { stored?: boolean };
+      shortLinkIsAvailable = Boolean(body.stored);
     } catch {
       setSubmitError("현장 집계 저장은 실패했지만 결과는 볼 수 있어요.");
     } finally {
-      router.push(`/result?r=${encodeURIComponent(resultCode)}`);
+      router.push(
+        shortLinkIsAvailable ? `/r/${shareId}` : `/result?r=${encodeURIComponent(resultCode)}`,
+      );
     }
   }
 
@@ -286,4 +294,11 @@ function getSessionId() {
   const next = crypto.randomUUID();
   window.localStorage.setItem("threesomeplace-session-id", next);
   return next;
+}
+
+function createShareId() {
+  const bytes = new Uint8Array(6);
+  crypto.getRandomValues(bytes);
+  const binary = Array.from(bytes, (byte) => String.fromCharCode(byte)).join("");
+  return btoa(binary).replaceAll("+", "-").replaceAll("/", "_").replace(/=+$/, "");
 }

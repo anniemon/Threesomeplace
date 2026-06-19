@@ -10,39 +10,32 @@ import {
   type SubmissionPayload,
 } from "@/lib/activity";
 import { buildRecipeSummary } from "@/lib/recipe";
-import { decodeResult } from "@/lib/result-code";
+import { decodeResult, type SharePayload } from "@/lib/result-code";
 
 export function ResultView() {
   const searchParams = useSearchParams();
-  const [copied, setCopied] = useState(false);
   const encoded = searchParams.get("r");
   const result = useMemo(() => (encoded ? decodeResult(encoded) : null), [encoded]);
-  const shareUrl = useMemo(() => {
-    if (!encoded || typeof window === "undefined") return "";
-    const url = new URL("/result", window.location.origin);
-    url.searchParams.set("r", encoded);
-    return url.toString();
-  }, [encoded]);
 
-  if (!result) {
-    return (
-      <section className="panel card">
-        <h1 className="question-title">결과를 찾지 못했어요</h1>
-        <p className="notice">공유 링크가 잘렸거나 아직 레시피를 만들지 않았을 수 있어요.</p>
-        <div className="nav-row">
-          <Link className="button pink" href="/play">
-            다시 섞기
-          </Link>
-          <Link className="button secondary" href="/">
-            처음으로
-          </Link>
-        </div>
-      </section>
-    );
-  }
+  if (!result || !encoded) return <MissingResult />;
 
+  return <ResultContent result={result} sharePath={`/result?r=${encodeURIComponent(encoded)}`} />;
+}
+
+export function ResultContent({
+  result,
+  sharePath,
+}: {
+  result: SharePayload;
+  sharePath: string;
+}) {
+  const [copied, setCopied] = useState(false);
   const payload: SubmissionPayload = { ...result, sessionId: "shared" };
   const summary = buildRecipeSummary(payload);
+  const shareUrl = useMemo(() => {
+    if (typeof window === "undefined") return "";
+    return new URL(sharePath, window.location.origin).toString();
+  }, [sharePath]);
 
   async function share() {
     if (!shareUrl) return;
@@ -142,6 +135,23 @@ export function ResultView() {
         </Link>
         <Link className="button" href="/play">
           다시 섞기
+        </Link>
+      </div>
+    </section>
+  );
+}
+
+export function MissingResult() {
+  return (
+    <section className="panel card">
+      <h1 className="question-title">결과를 찾지 못했어요</h1>
+      <p className="notice">공유 링크가 잘렸거나 아직 레시피를 만들지 않았을 수 있어요.</p>
+      <div className="nav-row">
+        <Link className="button pink" href="/play">
+          다시 섞기
+        </Link>
+        <Link className="button secondary" href="/">
+          처음으로
         </Link>
       </div>
     </section>
