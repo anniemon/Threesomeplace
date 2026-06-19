@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
   jealousyOptions,
+  jealousyTriggerOptions,
   relationshipOptions,
   type ChoiceOption,
   type SubmissionPayload,
@@ -23,6 +24,8 @@ const emptySentences: Sentences = {
 export function PlayExperience() {
   const router = useRouter();
   const [step, setStep] = useState(0);
+  const [jealousyTriggers, setJealousyTriggers] = useState<string[]>([]);
+  const [jealousyTriggerOther, setJealousyTriggerOther] = useState("");
   const [relationshipAreas, setRelationshipAreas] = useState<string[]>([]);
   const [relationshipOther, setRelationshipOther] = useState("");
   const [jealousyNeeds, setJealousyNeeds] = useState<string[]>([]);
@@ -32,10 +35,20 @@ export function PlayExperience() {
   const [submitError, setSubmitError] = useState("");
 
   const canGoNext = useMemo(() => {
-    if (step === 0) return relationshipAreas.length > 0 || relationshipOther.trim();
+    if (step === 0) return jealousyTriggers.length > 0 || jealousyTriggerOther.trim();
     if (step === 1) return jealousyNeeds.length > 0 || jealousyOther.trim();
+    if (step === 2) return relationshipAreas.length > 0 || relationshipOther.trim();
     return Object.values(sentences).some((value) => value.trim());
-  }, [jealousyNeeds, jealousyOther, relationshipAreas, relationshipOther, sentences, step]);
+  }, [
+    jealousyNeeds,
+    jealousyOther,
+    jealousyTriggerOther,
+    jealousyTriggers,
+    relationshipAreas,
+    relationshipOther,
+    sentences,
+    step,
+  ]);
 
   async function finish() {
     setIsSubmitting(true);
@@ -45,6 +58,8 @@ export function PlayExperience() {
     const payloadWithoutTitle = {
       sessionId: getSessionId(),
       shareId,
+      jealousyTriggers,
+      jealousyTriggerOther: jealousyTriggerOther.trim(),
       relationshipAreas,
       relationshipOther: relationshipOther.trim(),
       jealousyNeeds,
@@ -54,6 +69,8 @@ export function PlayExperience() {
     const recipeTitle = buildRecipeTitle(payloadWithoutTitle);
     const payload: SubmissionPayload = { ...payloadWithoutTitle, recipeTitle };
     const resultCode = encodeResult({
+      jealousyTriggers: payload.jealousyTriggers,
+      jealousyTriggerOther: payload.jealousyTriggerOther,
       relationshipAreas: payload.relationshipAreas,
       relationshipOther: payload.relationshipOther,
       jealousyNeeds: payload.jealousyNeeds,
@@ -88,13 +105,48 @@ export function PlayExperience() {
   return (
     <section className="panel card">
       <div className="step-line">
-        <span className="pill">카드 {step + 1} / 3</span>
+        <span className="pill">카드 {step + 1} / 4</span>
         <span className="pill">
-          {step === 0 ? "합의 요소 고르기" : step === 1 ? "질투 통역소" : "합의 점검표"}
+          {step <= 1 ? "질투 통역소" : step === 2 ? "합의 요소 고르기" : "합의 점검표"}
         </span>
       </div>
 
       {step === 0 && (
+        <ChoiceStep
+          title="질투 통역소"
+          prompt={
+            <>
+              나는 <span className="blank" /> 때 질투를 느낀다.
+            </>
+          }
+          options={jealousyTriggerOptions}
+          selected={jealousyTriggers}
+          onToggle={(id) => setJealousyTriggers(toggleValue(jealousyTriggers, id))}
+          otherLabel="다른 질투 순간을 직접 넣어도 좋아요"
+          otherValue={jealousyTriggerOther}
+          onOtherChange={setJealousyTriggerOther}
+        />
+      )}
+
+      {step === 1 && (
+        <ChoiceStep
+          title="질투 통역소"
+          prompt={
+            <>
+              내가 질투를 느꼈을 때 실제로 필요했던 것은{" "}
+              <span className="blank" /> (이)다.
+            </>
+          }
+          options={jealousyOptions}
+          selected={jealousyNeeds}
+          onToggle={(id) => setJealousyNeeds(toggleValue(jealousyNeeds, id))}
+          otherLabel="내 말로 번역하기"
+          otherValue={jealousyOther}
+          onOtherChange={setJealousyOther}
+        />
+      )}
+
+      {step === 2 && (
         <ChoiceStep
           title="합의 요소 고르기"
           prompt={
@@ -112,25 +164,7 @@ export function PlayExperience() {
         />
       )}
 
-      {step === 1 && (
-        <ChoiceStep
-          title="질투 통역소"
-          prompt={
-            <>
-              내가 질투를 느꼈을 때 실제로 필요했던 것은{" "}
-              <span className="blank" /> 다.
-            </>
-          }
-          options={jealousyOptions}
-          selected={jealousyNeeds}
-          onToggle={(id) => setJealousyNeeds(toggleValue(jealousyNeeds, id))}
-          otherLabel="내 말로 번역하기"
-          otherValue={jealousyOther}
-          onOtherChange={setJealousyOther}
-        />
-      )}
-
-      {step === 2 && (
+      {step === 3 && (
         <section>
           <h1 className="question-title">합의 점검표</h1>
           <p className="question-text">내 관계의 빈칸을 직접 채워요.</p>
@@ -172,7 +206,7 @@ export function PlayExperience() {
         >
           이전
         </button>
-        {step < 2 ? (
+        {step < 3 ? (
           <button
             className="button pink"
             disabled={!canGoNext}

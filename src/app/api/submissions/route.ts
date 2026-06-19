@@ -46,6 +46,7 @@ function validateSubmission(payload: SubmissionPayload) {
   if (payload.shareId && typeof payload.shareId !== "string") {
     return "Invalid shareId";
   }
+  if (!Array.isArray(payload.jealousyTriggers)) return "Invalid jealousyTriggers";
   if (!Array.isArray(payload.relationshipAreas)) return "Invalid relationshipAreas";
   if (!Array.isArray(payload.jealousyNeeds)) return "Invalid jealousyNeeds";
   if (!payload.sentences || typeof payload.sentences !== "object") {

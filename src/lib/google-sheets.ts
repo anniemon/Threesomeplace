@@ -39,7 +39,7 @@ export async function appendSubmission(payload: SubmissionPayload) {
 
   await sheets.spreadsheets.values.append({
     spreadsheetId,
-    range: `${sheetName}!A:L`,
+    range: `${sheetName}!A:N`,
     valueInputOption: "RAW",
     requestBody: {
       values: [
@@ -56,6 +56,8 @@ export async function appendSubmission(payload: SubmissionPayload) {
           payload.sentences.undefinedThing,
           payload.recipeTitle,
           payload.shareId ?? "",
+          payload.jealousyTriggers.join("|"),
+          payload.jealousyTriggerOther,
         ],
       ],
     },
@@ -68,7 +70,7 @@ export async function readSubmissionRows(): Promise<SheetRow[]> {
 
   const response = await sheets.spreadsheets.values.get({
     spreadsheetId,
-    range: `${sheetName}!A2:L`,
+    range: `${sheetName}!A2:N`,
   });
 
   return (response.data.values ?? []).map((row) =>
@@ -83,6 +85,8 @@ export async function readSubmissionByShareId(shareId: string): Promise<SharePay
 
   return {
     shareId: row.shareId,
+    jealousyTriggers: splitCell(row.jealousyTriggers),
+    jealousyTriggerOther: row.jealousyTriggerOther,
     relationshipAreas: splitCell(row.relationshipAreas),
     relationshipOther: row.relationshipOther,
     jealousyNeeds: splitCell(row.jealousyNeeds),
@@ -114,7 +118,7 @@ async function ensureSheet(sheets: sheets_v4.Sheets) {
 
   const headers = await sheets.spreadsheets.values.get({
     spreadsheetId,
-    range: `${sheetName}!A1:L1`,
+    range: `${sheetName}!A1:N1`,
   });
 
   const currentHeaders = headers.data.values?.[0] ?? [];
@@ -125,7 +129,7 @@ async function ensureSheet(sheets: sheets_v4.Sheets) {
   if (!currentHeaders.length || needsHeaderUpdate) {
     await sheets.spreadsheets.values.update({
       spreadsheetId,
-      range: `${sheetName}!A1:L1`,
+      range: `${sheetName}!A1:N1`,
       valueInputOption: "RAW",
       requestBody: { values: [sheetHeaders] },
     });

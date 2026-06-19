@@ -12,7 +12,7 @@ export default function PlayPage() {
               <span>플레이스</span>
             </span>
           </Link>
-          <span className="pill">1 → 2 → 3 → 관계 모양</span>
+          <span className="pill">1 → 2 → 3 → 4 → 관계 모양</span>
         </header>
         <PlayExperience />
       </div>

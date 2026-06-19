@@ -1,5 +1,6 @@
 import {
   jealousyOptions,
+  jealousyTriggerOptions,
   labelById,
   relationshipOptions,
   type WallSummary,
@@ -18,6 +19,8 @@ export const sheetHeaders = [
   "undefinedThing",
   "recipeTitle",
   "shareId",
+  "jealousyTriggers",
+  "jealousyTriggerOther",
 ];
 
 export type SheetRow = Record<(typeof sheetHeaders)[number], string>;
@@ -25,6 +28,11 @@ export type SheetRow = Record<(typeof sheetHeaders)[number], string>;
 export const sampleWallSummary: WallSummary = {
   configured: false,
   total: 24,
+  jealousyTriggers: [
+    { label: "파트너가 다른 사람과 있느라 연락이 없을", count: 16 },
+    { label: "파트너가 전애인 얘기할", count: 10 },
+    { label: "파트너가 취미/덕질에 몰두할 때", count: 8 },
+  ],
   relationshipAreas: [
     { label: "함께하는 시간", count: 18 },
     { label: "연락 빈도", count: 14 },
@@ -47,12 +55,14 @@ export const sampleWallSummary: WallSummary = {
 };
 
 export function rowsToSummary(rows: SheetRow[], configured = true): WallSummary {
+  const jealousyTriggerCounts = countChoices(rows, "jealousyTriggers", jealousyTriggerOptions);
   const relationshipCounts = countChoices(rows, "relationshipAreas", relationshipOptions);
   const jealousyCounts = countChoices(rows, "jealousyNeeds", jealousyOptions);
 
   return {
     configured,
     total: rows.length,
+    jealousyTriggers: jealousyTriggerCounts,
     relationshipAreas: relationshipCounts,
     jealousyNeeds: jealousyCounts,
     sentences: {
@@ -66,7 +76,7 @@ export function rowsToSummary(rows: SheetRow[], configured = true): WallSummary 
 
 function countChoices(
   rows: SheetRow[],
-  key: "relationshipAreas" | "jealousyNeeds",
+  key: "jealousyTriggers" | "relationshipAreas" | "jealousyNeeds",
   options: typeof relationshipOptions,
 ) {
   const counts = new Map<string, number>();

@@ -2,7 +2,7 @@
 
 ## Goal
 
-Build a mobile-first web app for the booth activity. Participants enter from a QR code, complete three playful cards, receive a shareable relationship recipe, and submit anonymous data to Google Sheets for a separate live wall view.
+Build a mobile-first web app for the booth activity. Participants enter from a QR code, complete four playful cards, receive a shareable relationship recipe, and submit anonymous data to Google Sheets for a separate live wall view.
 
 ## Product Flow
 
@@ -11,13 +11,16 @@ Build a mobile-first web app for the booth activity. Participants enter from a Q
    - Link to the existing Tally pre-registration form as a secondary action.
 
 2. Participant flow `/play`
-   - Card 1: 합의 요소 고르기
-     - Prompt: `내가 파트너와의 관계에서 꼭 합의하고 싶은 요소는 ___ 다.`
+   - Card 1: 질투 통역소
+     - Prompt: `나는 _______때 질투를 느낀다.`
      - Multi-select chips plus an optional direct input.
    - Card 2: 질투 통역소
      - Prompt: `내가 질투를 느꼈을 때 실제로 필요했던 것은 ______다.`
      - Multi-select chips plus an optional direct input.
-   - Card 3: 문장완성형 합의점검표
+   - Card 3: 합의 요소 고르기
+     - Prompt: `내가 파트너와의 관계에서 꼭 합의하고 싶은 요소는 ___ 다.`
+     - Multi-select chips plus an optional direct input.
+   - Card 4: 문장완성형 합의점검표
      - Free text fields:
        - `나는 ______이 중요하다.`
        - `______은 각자 결정하고 싶다.`
@@ -41,6 +44,8 @@ Each Google Sheets row should include:
 
 - `createdAt`
 - `sessionId`
+- `jealousyTriggers`
+- `jealousyTriggerOther`
 - `relationshipAreas`
 - `relationshipOther`
 - `jealousyNeeds`

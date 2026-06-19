@@ -1,5 +1,6 @@
 import {
   jealousyOptions,
+  jealousyTriggerOptions,
   labelById,
   relationshipOptions,
   type SubmissionPayload,
@@ -27,6 +28,12 @@ export function buildRecipeTitle(payload: Omit<SubmissionPayload, "recipeTitle">
 }
 
 export function buildRecipeSummary(payload: SubmissionPayload) {
+  const jealousyTriggerLabels = (payload.jealousyTriggers ?? []).map((id) =>
+    labelById(jealousyTriggerOptions, id),
+  );
+  if (payload.jealousyTriggerOther) {
+    jealousyTriggerLabels.push(payload.jealousyTriggerOther);
+  }
   const relationshipLabels = payload.relationshipAreas.map((id) =>
     labelById(relationshipOptions, id),
   );
@@ -34,6 +41,9 @@ export function buildRecipeSummary(payload: SubmissionPayload) {
     labelById(jealousyOptions, id),
   );
 
+  const triggerLine = jealousyTriggerLabels.length
+    ? `질투를 느끼는 순간: ${jealousyTriggerLabels.join(", ")}`
+    : "";
   const firstLine = relationshipLabels.length
     ? `합의하고 싶은 요소: ${relationshipLabels.join(", ")}`
     : "아직 합의하고 싶은 요소를 고르는 중";
@@ -41,5 +51,5 @@ export function buildRecipeSummary(payload: SubmissionPayload) {
     ? `질투가 말해준 필요: ${jealousyLabels.join(", ")}`
     : "질투의 언어는 아직 번역 중";
 
-  return [firstLine, secondLine];
+  return [triggerLine, secondLine, firstLine].filter(Boolean);
 }

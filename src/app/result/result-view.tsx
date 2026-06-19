@@ -5,6 +5,7 @@ import { useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import {
   jealousyOptions,
+  jealousyTriggerOptions,
   labelById,
   relationshipOptions,
   type SubmissionPayload,
@@ -30,7 +31,12 @@ export function ResultContent({
   sharePath: string;
 }) {
   const [copied, setCopied] = useState(false);
-  const payload: SubmissionPayload = { ...result, sessionId: "shared" };
+  const payload: SubmissionPayload = {
+    ...result,
+    jealousyTriggers: result.jealousyTriggers ?? [],
+    jealousyTriggerOther: result.jealousyTriggerOther ?? "",
+    sessionId: "shared",
+  };
   const summary = buildRecipeSummary(payload);
   const shareUrl = useMemo(() => {
     if (typeof window === "undefined") return "";
@@ -55,6 +61,10 @@ export function ResultContent({
     ...payload.relationshipAreas.map((id) => labelById(relationshipOptions, id)),
     payload.relationshipOther,
   ].filter(Boolean);
+  const jealousyTriggerLabels = [
+    ...(payload.jealousyTriggers ?? []).map((id) => labelById(jealousyTriggerOptions, id)),
+    payload.jealousyTriggerOther,
+  ].filter(Boolean);
   const jealousyLabels = [
     ...payload.jealousyNeeds.map((id) => labelById(jealousyOptions, id)),
     payload.jealousyOther,
@@ -65,16 +75,29 @@ export function ResultContent({
       <span className="pill">오늘의 관계 모양</span>
       <h1 className="recipe-title">{payload.recipeTitle}</h1>
       <div className="notice">
-        {summary.map((line) => (
-          <p key={line}>{line}</p>
+        {summary.map((line, index) => (
+          <p key={`${index}-${line}`}>{line}</p>
         ))}
       </div>
+
+      {jealousyTriggerLabels.length > 0 && (
+        <div className="wall-section">
+          <span className="pill">질투가 시작되는 순간</span>
+          <div className="quote-cloud">
+            {jealousyTriggerLabels.map((label, index) => (
+              <span className="quote" key={`jealousy-trigger-${index}-${label}`}>
+                {label}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
 
       <div className="wall-section">
         <span className="pill">내가 고른 합의 요소</span>
         <div className="quote-cloud">
-          {relationshipLabels.map((label) => (
-            <span className="quote" key={label}>
+          {relationshipLabels.map((label, index) => (
+            <span className="quote" key={`relationship-${index}-${label}`}>
               {label}
             </span>
           ))}
@@ -84,8 +107,8 @@ export function ResultContent({
       <div className="wall-section">
         <span className="pill">질투가 통역해준 필요</span>
         <div className="quote-cloud">
-          {jealousyLabels.map((label) => (
-            <span className="quote" key={label}>
+          {jealousyLabels.map((label, index) => (
+            <span className="quote" key={`jealousy-need-${index}-${label}`}>
               {label}
             </span>
           ))}
