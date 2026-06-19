@@ -42,6 +42,7 @@ export const relationshipOptions: ChoiceOption[] = [
   { id: "money", label: "데이트 비용이나 생활비", color: "orange" },
   { id: "hobby", label: "취미 생활", color: "blue" },
   { id: "public-range", label: "가족·친구·SNS 공개 범위", color: "green" },
+  { id: "relationship-definition", label: "호칭 또는 관계 정의", color: "purple" },
   { id: "future-law", label: "가족 계획", color: "yellow" },
   { id: "open-relationship", label: "오픈 릴레이션십", color: "pink" },
   { id: "conflict-resolution", label: "갈등 해결 방식", color: "lime" },
