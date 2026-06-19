@@ -17,6 +17,12 @@ export function ResultView() {
   const [copied, setCopied] = useState(false);
   const encoded = searchParams.get("r");
   const result = useMemo(() => (encoded ? decodeResult(encoded) : null), [encoded]);
+  const shareUrl = useMemo(() => {
+    if (!encoded || typeof window === "undefined") return "";
+    const url = new URL("/result", window.location.origin);
+    url.searchParams.set("r", encoded);
+    return url.toString();
+  }, [encoded]);
 
   if (!result) {
     return (
@@ -37,25 +43,24 @@ export function ResultView() {
 
   const payload: SubmissionPayload = { ...result, sessionId: "shared" };
   const summary = buildRecipeSummary(payload);
-  const currentUrl = typeof window === "undefined" ? "" : window.location.href;
 
   async function share() {
-    if (!currentUrl) return;
+    if (!shareUrl) return;
     if (navigator.share) {
       await navigator.share({
         title: "나의 쓰리썸플레이스 관계 레시피",
         text: result?.recipeTitle,
-        url: currentUrl,
+        url: shareUrl,
       });
       return;
     }
-    await navigator.clipboard.writeText(currentUrl);
+    await navigator.clipboard.writeText(shareUrl);
     setCopied(true);
   }
 
   async function copy() {
-    if (!currentUrl) return;
-    await navigator.clipboard.writeText(currentUrl);
+    if (!shareUrl) return;
+    await navigator.clipboard.writeText(shareUrl);
     setCopied(true);
   }
 
