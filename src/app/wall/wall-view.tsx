@@ -197,10 +197,11 @@ function SentenceWall({ summary }: { summary: WallSummary }) {
 function getWordStyle(count: number, max: number, index: number) {
   const weight = count / max;
   const size = Math.round(34 + weight * 48);
+  const viewportSize = Math.round(size * 0.12);
 
   return {
     color: colors[index % colors.length],
-    fontSize: `${size}px`,
+    fontSize: `clamp(30px, ${viewportSize}vw, ${size}px)`,
     transform: `rotate(${rotations[index % rotations.length]}deg)`,
   };
 }

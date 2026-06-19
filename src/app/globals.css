@@ -80,8 +80,7 @@ a {
 }
 
 .wall-container {
-  width: min(1480px, 100%);
-  padding-inline: clamp(10px, 2vw, 20px);
+  width: min(1120px, 100%);
 }
 
 .topbar {
@@ -103,21 +102,27 @@ a {
 .brand-mark {
   display: grid;
   place-items: center;
-  width: 136px;
-  height: 136px;
+  width: auto;
+  min-width: 168px;
+  height: 72px;
   padding: 12px;
   border: 2px solid var(--ink);
-  border-radius: 50%;
+  border-radius: 999px;
   background: var(--yellow);
   box-shadow: 3px 3px 0 var(--shadow);
   font-size: 24px;
-  line-height: 1.05;
+  line-height: 1;
   text-align: center;
   word-break: keep-all;
+  white-space: nowrap;
 }
 
 .brand-mark span {
-  display: block;
+  display: inline;
+}
+
+.brand-mark span + span::before {
+  content: " ";
 }
 
 .pill {
@@ -135,6 +140,7 @@ a {
 }
 
 .panel {
+  min-width: 0;
   border: 2px solid var(--ink);
   border-radius: 8px;
   background: rgba(255, 253, 241, 0.92);
@@ -461,6 +467,7 @@ a {
   display: grid;
   grid-template-columns: minmax(220px, 0.48fr) minmax(0, 1.52fr);
   gap: 18px;
+  min-width: 0;
 }
 
 .wall-board {
@@ -512,7 +519,7 @@ a {
   letter-spacing: 0;
   line-height: 0.9;
   max-width: 100%;
-  overflow-wrap: break-word;
+  overflow-wrap: anywhere;
   text-align: center;
   white-space: normal;
   word-break: keep-all;
@@ -579,12 +586,29 @@ a {
   }
 
   .topbar {
-    align-items: flex-start;
-    flex-direction: column;
+    align-items: center;
+    flex-direction: row;
+    gap: 10px;
+  }
+
+  .brand-mark {
+    min-width: 144px;
+    height: 54px;
+    padding: 8px 14px;
+    font-size: 18px;
   }
 
   .pill {
     font-size: 13px;
+    white-space: nowrap;
+  }
+
+  .wall-container {
+    padding-inline: 12px;
+  }
+
+  .wall-word {
+    word-break: normal;
   }
 
   .nav-row {
