@@ -2,13 +2,20 @@
 
 import { useEffect, useState } from "react";
 import type { WallSummary } from "@/lib/activity";
-import { sampleWallSummary } from "@/lib/wall";
 
-const colors = ["var(--pink)", "var(--purple)", "var(--lime)", "var(--orange)", "var(--blue)", "var(--green)"];
+const colors = [
+  "var(--pink)",
+  "var(--purple)",
+  "var(--lime)",
+  "var(--orange)",
+  "var(--blue)",
+  "var(--green)",
+];
 
 export function WallView() {
-  const [summary, setSummary] = useState<WallSummary>(sampleWallSummary);
+  const [summary, setSummary] = useState<WallSummary | null>(null);
   const [updatedAt, setUpdatedAt] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     let isMounted = true;
@@ -16,13 +23,25 @@ export function WallView() {
     async function load() {
       try {
         const response = await fetch("/api/wall", { cache: "no-store" });
+        if (!response.ok) {
+          throw new Error("Failed to load wall data");
+        }
         const data = (await response.json()) as WallSummary;
         if (isMounted) {
           setSummary(data);
-          setUpdatedAt(new Date().toLocaleTimeString("ko-KR", { hour: "2-digit", minute: "2-digit" }));
+          setErrorMessage("");
+          setUpdatedAt(
+            new Date().toLocaleTimeString("ko-KR", {
+              hour: "2-digit",
+              minute: "2-digit",
+            }),
+          );
         }
       } catch {
-        if (isMounted) setSummary(sampleWallSummary);
+        if (isMounted) {
+          setErrorMessage("집계 데이터를 아직 불러오지 못했어요.");
+          setUpdatedAt("");
+        }
       }
     }
 
@@ -43,22 +62,28 @@ export function WallView() {
           크기의 말풍선으로 놓입니다.
         </p>
         <p className="notice">
-          총 {summary.total}개의 익명 응답
-          {!summary.configured && " · 지금은 Google Sheets 인증 전 목 데이터"}
-          {updatedAt && ` · ${updatedAt} 갱신`}
+          {summary
+            ? `총 ${summary.total}개의 익명 응답${updatedAt ? ` · ${updatedAt} 갱신` : ""}`
+            : "집계 데이터를 불러오는 중"}
         </p>
       </div>
 
       <div className="panel wall-board">
-        <WeightedWords
-          title="관계 믹서: 꼭 합의하고 싶은 영역"
-          words={summary.relationshipAreas}
-        />
-        <WeightedWords
-          title="질투 통역소: 실제로 필요했던 것"
-          words={summary.jealousyNeeds}
-        />
-        <SentenceWall summary={summary} />
+        {summary ? (
+          <>
+            <WeightedWords
+              title="관계 믹서: 꼭 합의하고 싶은 영역"
+              words={summary.relationshipAreas}
+            />
+            <WeightedWords
+              title="질투 통역소: 실제로 필요했던 것"
+              words={summary.jealousyNeeds}
+            />
+            <SentenceWall summary={summary} />
+          </>
+        ) : (
+          <LoadingWall message={errorMessage} />
+        )}
       </div>
     </section>
   );
@@ -77,54 +102,83 @@ function WeightedWords({
     <section className="wall-section">
       <span className="pill color-lime">{title}</span>
       <div className="word-cloud">
-        {words.map((word, index) => (
-          <span
-            className="wall-word"
-            key={word.label}
-            style={{
-              color: colors[index % colors.length],
-              fontSize: `${Math.round(24 + (word.count / max) * 34)}px`,
-            }}
-          >
-            {word.label}
-            <small> {word.count}</small>
-          </span>
-        ))}
+        {words.length ? (
+          words.map((word, index) => (
+            <span
+              className="wall-word"
+              key={word.label}
+              style={{
+                color: colors[index % colors.length],
+                fontSize: `${Math.round(24 + (word.count / max) * 34)}px`,
+              }}
+            >
+              {word.label}
+              <small> {word.count}</small>
+            </span>
+          ))
+        ) : (
+          <span className="status-line">아직 응답이 없어요.</span>
+        )}
       </div>
     </section>
   );
 }
 
 function SentenceWall({ summary }: { summary: WallSummary }) {
+  const hasSentences = Object.values(summary.sentences).some(
+    (sentences) => sentences.length > 0,
+  );
+
   return (
     <section className="wall-section">
       <span className="pill color-yellow">문장완성형 합의점검표</span>
       <div className="quote-cloud">
-        {summary.sentences.important.map((sentence) => (
-          <span className="quote" key={`important-${sentence}`}>
-            <small>나는 ______이 중요하다</small>
-            {sentence}
-          </span>
-        ))}
-        {summary.sentences.decideSeparately.map((sentence) => (
-          <span className="quote" key={`decide-${sentence}`}>
-            <small>______은 각자 결정하고 싶다</small>
-            {sentence}
-          </span>
-        ))}
-        {summary.sentences.notifyBefore.map((sentence) => (
-          <span className="quote" key={`notify-${sentence}`}>
-            <small>______ 전에는 알려주면 좋겠다</small>
-            {sentence}
-          </span>
-        ))}
-        {summary.sentences.undefinedThing.map((sentence) => (
-          <span className="quote" key={`undefined-${sentence}`}>
-            <small>아직 정의하고 싶지 않은 것은</small>
-            {sentence}
-          </span>
-        ))}
+        {hasSentences ? (
+          <>
+            {summary.sentences.important.map((sentence) => (
+              <span className="quote" key={`important-${sentence}`}>
+                <small>나는 ______이 중요하다</small>
+                {sentence}
+              </span>
+            ))}
+            {summary.sentences.decideSeparately.map((sentence) => (
+              <span className="quote" key={`decide-${sentence}`}>
+                <small>______은 각자 결정하고 싶다</small>
+                {sentence}
+              </span>
+            ))}
+            {summary.sentences.notifyBefore.map((sentence) => (
+              <span className="quote" key={`notify-${sentence}`}>
+                <small>______ 전에는 알려주면 좋겠다</small>
+                {sentence}
+              </span>
+            ))}
+            {summary.sentences.undefinedThing.map((sentence) => (
+              <span className="quote" key={`undefined-${sentence}`}>
+                <small>아직 정의하고 싶지 않은 것은</small>
+                {sentence}
+              </span>
+            ))}
+          </>
+        ) : (
+          <span className="status-line">아직 문장 응답이 없어요.</span>
+        )}
       </div>
+    </section>
+  );
+}
+
+function LoadingWall({ message }: { message: string }) {
+  return (
+    <section className="wall-section">
+      <span className="pill color-yellow">
+        {message || "Google Sheets에서 집계를 불러오는 중"}
+      </span>
+      <p className="notice">
+        {message
+          ? "환경변수와 Google Sheet 공유 권한을 확인한 뒤 새로고침해주세요."
+          : "잠시만 기다려주세요. 실제 응답을 받은 뒤 전시 월을 표시합니다."}
+      </p>
     </section>
   );
 }

@@ -20,7 +20,7 @@ npm run dev
 
 Open `http://localhost:3000`.
 
-Google Sheets credentials are optional for local UI work. Without them, submissions return success without writing, and `/wall` shows mock data.
+Google Sheets credentials are optional for local UI work. Without them, submissions return success without writing, and `/wall` shows a loading/error state instead of mock data.
 
 ## Google Sheets Setup
 

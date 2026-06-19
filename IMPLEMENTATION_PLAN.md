@@ -61,7 +61,7 @@ All values are anonymous. `sessionId` is a random browser-generated identifier, 
 4. [x] Implement result encoding/decoding for shareable URLs.
 5. [x] Add `/api/submissions` to write anonymous submissions to Google Sheets.
 6. [x] Add `/api/wall` to read rows and return aggregate data for `/wall`.
-7. [x] Add local mock fallback for wall data when Google credentials are missing.
+7. [x] Show a loading/error state for wall data when Google credentials are missing.
 8. [x] Run build verification and document required deployment environment variables.
 
 ## Current Status
