@@ -50,14 +50,18 @@ export const relationshipOptions: ChoiceOption[] = [
   { id: "time-contact", label: "함께하는 시간", color: "pink" },
   { id: "contact-frequency", label: "연락 빈도", color: "lime" },
   { id: "sex-health", label: "스킨십과 성생활", color: "yellow" },
+  { id: "health-status", label: "건강 상태", color: "purple" },
   { id: "home-space", label: "동거 여부", color: "purple" },
   { id: "personal-space", label: "개인적인 공간과 시간", color: "green" },
   { id: "money", label: "데이트 비용이나 생활비", color: "orange" },
+  { id: "important-days", label: "기념일과 중요한 날을 챙기는 방식", color: "blue" },
   { id: "hobby", label: "취미 생활", color: "blue" },
   { id: "public-range", label: "가족·친구·SNS 공개 범위", color: "green" },
   { id: "relationship-definition", label: "호칭 또는 관계 정의", color: "purple" },
+  { id: "speech-level", label: "존댓말/평어 사용", color: "orange" },
   { id: "future-law", label: "가족 계획", color: "yellow" },
   { id: "open-relationship", label: "오픈 릴레이션십", color: "pink" },
+  { id: "new-relationship-notice", label: "새로운 관계를 알리는 방식", color: "green" },
   { id: "conflict-resolution", label: "갈등 해결 방식", color: "lime" },
 ];
 
