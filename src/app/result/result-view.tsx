@@ -8,6 +8,7 @@ import {
   jealousyTriggerOptions,
   labelById,
   relationshipOptions,
+  tallyUrl,
   type SubmissionPayload,
 } from "@/lib/activity";
 import { decodeResult, type SharePayload } from "@/lib/result-code";
@@ -163,6 +164,9 @@ export function ResultContent({
         <button className="button purple" type="button" onClick={share}>
           공유하기
         </button>
+        <a className="button secondary" href={tallyUrl} target="_blank">
+          고민 상담 신청 폼 보기
+        </a>
       </div>
       <div className="nav-row">
         <Link className="button secondary" href="/wall">

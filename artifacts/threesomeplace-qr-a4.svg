@@ -12,11 +12,7 @@
 
   <text x="1240" y="520" text-anchor="middle"
         font-family="Apple SD Gothic Neo, system-ui, sans-serif"
-        font-size="96" font-weight="900" fill="#302637">내가 원하는 관계의 모양을 알아보는 시간</text>
-
-  <text x="1240" y="650" text-anchor="middle"
-        font-family="Apple SD Gothic Neo, system-ui, sans-serif"
-        font-size="58" font-weight="800" fill="#302637">QR로 들어와 합의 요소 고르기와 질투 통역소에 참여해보세요</text>
+        font-size="96" font-weight="900" fill="#302637">내가 원하는 관계의 모양은 무엇일까?</text>
 
   <rect x="430" y="850" width="1620" height="1620" rx="48" fill="#ffffff" stroke="#302637" stroke-width="10"/>
   <image href="threesomeplace-qr.png" x="490" y="910" width="1500" height="1500"/>
@@ -29,7 +25,4 @@
         font-family="Apple SD Gothic Neo, system-ui, sans-serif"
         font-size="50" font-weight="800" fill="#302637">https://threesomeplace.vercel.app/</text>
 
-  <text x="1240" y="3335" text-anchor="middle"
-        font-family="Apple SD Gothic Neo, system-ui, sans-serif"
-        font-size="58" font-weight="900" fill="#fffdf1">3분 참여 · 익명 집계 · 링크 공유</text>
 </svg>

@@ -170,9 +170,9 @@ a {
 .start-panel {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   gap: 24px;
-  min-height: 320px;
+  min-height: 220px;
   padding: 22px;
   border: 2px solid var(--ink);
   border-radius: 8px;

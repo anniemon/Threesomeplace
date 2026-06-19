@@ -21,22 +21,15 @@ export default function Home() {
             <p className="hero-text">
               나에게 잘 맞는 관계의 구성 요소를 직접 조립해 만들어보아요.
               <br />
-              결과는 링크로 공유할 수 있어요.
+              결과 페이지도 바로 확인할 수 있어요.
             </p>
             <p className="notice">
-              이름이나 연락처는 묻지 않습니다. 제출한 선택지와 문장은 익명 집계와
-              현장 전시에 쓰일 수 있습니다.
+              이름이나 연락처는 묻지 않습니다. 제출한 선택지와 문장은 개인을
+              식별하지 않는 방식으로 현장 전시에 쓰일 수 있습니다.
             </p>
           </div>
 
           <aside className="start-panel">
-            <strong>
-              3분 참여
-              <br />
-              익명 집계
-              <br />
-              링크 공유
-            </strong>
             <div className="result-layout">
               <Link className="button" href="/play">
                 참여하기
