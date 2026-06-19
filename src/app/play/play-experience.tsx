@@ -68,7 +68,7 @@ export function PlayExperience() {
       jealousyOther: jealousyOther.trim(),
       sentences: trimSentences(sentences),
     };
-    const recipeTitle = buildRecipeTitle(payloadWithoutTitle);
+    const recipeTitle = buildRecipeTitle();
     const payload: SubmissionPayload = { ...payloadWithoutTitle, recipeTitle };
     const resultCode = encodeResult({
       jealousyTriggers: payload.jealousyTriggers,

@@ -236,6 +236,10 @@ a {
   margin-top: 34px;
 }
 
+.recipe-title + .wall-section {
+  margin-top: 34px;
+}
+
 .card {
   width: min(720px, 100%);
   margin: 0 auto;
@@ -470,8 +474,9 @@ a {
   font-size: clamp(38px, 5.4vw, 78px);
 }
 
-.wall-container .hero-text {
-  font-size: clamp(16px, 1.9vw, 22px);
+.wall-hero-text {
+  font-size: clamp(13px, 1.35vw, 16px);
+  line-height: 1.45;
 }
 
 .wall-section + .wall-section {

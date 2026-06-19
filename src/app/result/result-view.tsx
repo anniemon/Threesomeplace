@@ -10,7 +10,6 @@ import {
   relationshipOptions,
   type SubmissionPayload,
 } from "@/lib/activity";
-import { buildRecipeSummary } from "@/lib/recipe";
 import { decodeResult, type SharePayload } from "@/lib/result-code";
 
 export function ResultView() {
@@ -45,7 +44,6 @@ export function ResultContent({
     },
     sessionId: "shared",
   };
-  const summary = buildRecipeSummary(payload);
   const shareUrl = useMemo(() => {
     if (typeof window === "undefined") return "";
     return new URL(sharePath, window.location.origin).toString();
@@ -56,7 +54,7 @@ export function ResultContent({
     if (navigator.share) {
       await navigator.share({
         title: "나의 쓰리썸플레이스 관계 모양",
-        text: result?.recipeTitle,
+        text: "내가 원하는 관계 모양",
         url: shareUrl,
       });
       return;
@@ -80,17 +78,11 @@ export function ResultContent({
 
   return (
     <section className="panel card">
-      <span className="pill">오늘의 관계 모양</span>
-      <h1 className="recipe-title">{payload.recipeTitle}</h1>
-      <div className="notice">
-        {summary.map((line, index) => (
-          <p key={`${index}-${line}`}>{line}</p>
-        ))}
-      </div>
+      <h1 className="recipe-title">내가 원하는 관계 모양</h1>
 
       {jealousyTriggerLabels.length > 0 && (
         <div className="wall-section">
-          <span className="pill">질투가 시작되는 순간</span>
+          <span className="pill">질투를 느끼는 순간</span>
           <div className="quote-cloud">
             {jealousyTriggerLabels.map((label, index) => (
               <span className="quote" key={`jealousy-trigger-${index}-${label}`}>
@@ -113,7 +105,7 @@ export function ResultContent({
       </div>
 
       <div className="wall-section">
-        <span className="pill">질투가 통역해준 필요</span>
+        <span className="pill">질투가 알려준 욕구</span>
         <div className="quote-cloud">
           {jealousyLabels.map((label, index) => (
             <span className="quote" key={`jealousy-need-${index}-${label}`}>
@@ -124,7 +116,7 @@ export function ResultContent({
       </div>
 
       <div className="wall-section">
-        <span className="pill">내 합의 문장</span>
+        <span className="pill">나에게 중요한 것들</span>
         <div className="quote-cloud">
           {payload.sentences.important && (
             <span className="quote">

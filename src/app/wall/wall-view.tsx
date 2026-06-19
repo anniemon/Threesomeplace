@@ -67,8 +67,8 @@ export function WallView() {
   return (
     <section className="wall-grid">
       <div className="panel hero-copy">
-        <h1 className="hero-title">지금 이곳의 관계 언어</h1>
-        <p className="hero-text">
+        <h1 className="hero-title">관계의 말들</h1>
+        <p className="hero-text wall-hero-text">
           객관식 응답은 많이 나온 말일수록 크게 보이고, 문장완성 응답은 모두 같은
           크기의 말풍선으로 놓입니다.
         </p>

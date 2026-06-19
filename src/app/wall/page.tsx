@@ -12,7 +12,6 @@ export default function WallPage() {
               <span>플레이스</span>
             </span>
           </Link>
-          <span className="pill">현장 전시 월</span>
         </header>
         <WallView />
       </div>
