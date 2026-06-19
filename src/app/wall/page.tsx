@@ -4,7 +4,7 @@ import { WallView } from "./wall-view";
 export default function WallPage() {
   return (
     <main className="app-shell">
-      <div className="container">
+      <div className="container wall-container">
         <header className="topbar">
           <Link className="brand" href="/">
             <span className="brand-mark">3</span>

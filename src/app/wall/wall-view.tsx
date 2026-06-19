@@ -14,6 +14,14 @@ const colors = [
 
 const rotations = [-4, 2, -1, 4, -3, 1, 3, -2];
 
+const loadingWords = [
+  "불러오는 중",
+  "관계 언어",
+  "합의 영역",
+  "질투의 필요",
+  "익명 응답",
+];
+
 export function WallView() {
   const [summary, setSummary] = useState<WallSummary | null>(null);
   const [updatedAt, setUpdatedAt] = useState("");
@@ -189,16 +197,60 @@ function getWordStyle(count: number, max: number, index: number) {
 }
 
 function LoadingWall({ message }: { message: string }) {
+  if (message) {
+    return (
+      <section className="wall-section">
+        <span className="pill color-yellow">{message}</span>
+        <p className="notice">환경변수와 Google Sheet 공유 권한을 확인한 뒤 새로고침해주세요.</p>
+      </section>
+    );
+  }
+
   return (
-    <section className="wall-section">
-      <span className="pill color-yellow">
-        {message || "Google Sheets에서 집계를 불러오는 중"}
-      </span>
-      <p className="notice">
-        {message
-          ? "환경변수와 Google Sheet 공유 권한을 확인한 뒤 새로고침해주세요."
-          : "잠시만 기다려주세요. 실제 응답을 받은 뒤 전시 월을 표시합니다."}
-      </p>
+    <>
+      <LoadingWordCloud title="관계 믹서: 꼭 합의하고 싶은 영역" />
+      <LoadingWordCloud title="질투 통역소: 실제로 필요했던 것" />
+      <section className="wall-section">
+        <span className="pill color-yellow">문장완성형 합의점검표</span>
+        <div className="sentence-groups" aria-hidden="true">
+          {[
+            "나는 ______이 중요하다",
+            "______은 각자 결정하고 싶다",
+            "______ 전에는 알려주면 좋겠다",
+          ].map((title) => (
+            <section className="sentence-group" key={title}>
+              <h2 className="sentence-group-title">{title}</h2>
+              <div className="quote-cloud sentence-quotes">
+                <span className="quote sentence-quote skeleton-quote" />
+                <span className="quote sentence-quote skeleton-quote" />
+              </div>
+            </section>
+          ))}
+        </div>
+      </section>
+    </>
+  );
+}
+
+function LoadingWordCloud({ title }: { title: string }) {
+  return (
+    <section className="wall-section" aria-hidden="true">
+      <span className="pill color-lime">{title}</span>
+      <div className="word-cloud loading-word-cloud">
+        {loadingWords.map((word, index) => (
+          <span
+            className="wall-word skeleton-word"
+            key={`${title}-${word}`}
+            style={{
+              color: colors[index % colors.length],
+              fontSize: `${42 + index * 8}px`,
+              transform: `rotate(${rotations[index % rotations.length]}deg)`,
+            }}
+          >
+            {word}
+          </span>
+        ))}
+      </div>
     </section>
   );
 }

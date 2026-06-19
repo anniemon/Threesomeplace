@@ -69,6 +69,11 @@ a {
   padding: 24px 16px 52px;
 }
 
+.wall-container {
+  width: min(1480px, 100%);
+  padding-inline: clamp(10px, 2vw, 20px);
+}
+
 .topbar {
   display: flex;
   align-items: center;
@@ -404,13 +409,25 @@ a {
 
 .wall-grid {
   display: grid;
-  grid-template-columns: minmax(260px, 0.9fr) minmax(0, 1.1fr);
+  grid-template-columns: minmax(220px, 0.48fr) minmax(0, 1.52fr);
   gap: 18px;
 }
 
 .wall-board {
   min-height: 420px;
-  padding: clamp(18px, 4vw, 28px);
+  padding: clamp(16px, 2.4vw, 26px);
+}
+
+.wall-container .hero-copy {
+  padding: clamp(18px, 3vw, 28px);
+}
+
+.wall-container .hero-title {
+  font-size: clamp(38px, 5.4vw, 78px);
+}
+
+.wall-container .hero-text {
+  font-size: clamp(16px, 1.9vw, 22px);
 }
 
 .wall-section + .wall-section {
@@ -424,11 +441,15 @@ a {
   flex-wrap: wrap;
   align-content: center;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 14px 22px;
   min-height: 180px;
   margin-top: 18px;
   padding: 14px 6px;
+}
+
+.loading-word-cloud {
+  opacity: 0.42;
 }
 
 .wall-word {
@@ -478,6 +499,26 @@ a {
   flex: 1 1 190px;
   align-items: center;
   min-height: 74px;
+}
+
+.skeleton-word,
+.skeleton-quote {
+  animation: wall-pulse 1.4s ease-in-out infinite alternate;
+}
+
+.skeleton-quote {
+  min-width: 180px;
+  background: var(--yellow);
+}
+
+@keyframes wall-pulse {
+  from {
+    opacity: 0.35;
+  }
+
+  to {
+    opacity: 0.75;
+  }
 }
 
 .status-line {
