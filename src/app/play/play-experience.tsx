@@ -10,7 +10,8 @@ import {
   type SubmissionPayload,
 } from "@/lib/activity";
 import { buildRecipeTitle } from "@/lib/recipe";
-import { encodeResult } from "@/lib/result-code";
+import { encodeResult, type SharePayload } from "@/lib/result-code";
+import { transientResultKey } from "@/lib/transient-result";
 
 type Sentences = SubmissionPayload["sentences"];
 
@@ -34,7 +35,6 @@ export function PlayExperience() {
   const [jealousyOther, setJealousyOther] = useState("");
   const [sentences, setSentences] = useState<Sentences>(emptySentences);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitError, setSubmitError] = useState("");
 
   const canGoNext = useMemo(() => {
     if (step === 0) return jealousyTriggers.length > 0 || jealousyTriggerOther.trim();
@@ -52,9 +52,8 @@ export function PlayExperience() {
     step,
   ]);
 
-  async function finish() {
+  function finish() {
     setIsSubmitting(true);
-    setSubmitError("");
     const shareId = createShareId();
 
     const payloadWithoutTitle = {
@@ -70,7 +69,7 @@ export function PlayExperience() {
     };
     const recipeTitle = buildRecipeTitle();
     const payload: SubmissionPayload = { ...payloadWithoutTitle, recipeTitle };
-    const resultCode = encodeResult({
+    const sharePayload: SharePayload = {
       jealousyTriggers: payload.jealousyTriggers,
       jealousyTriggerOther: payload.jealousyTriggerOther,
       relationshipAreas: payload.relationshipAreas,
@@ -79,29 +78,14 @@ export function PlayExperience() {
       jealousyOther: payload.jealousyOther,
       sentences: payload.sentences,
       recipeTitle,
-    });
+    };
+    const resultCode = encodeResult(sharePayload);
+    const hasLocalFallback = saveTransientResult(shareId, sharePayload);
 
-    let shortLinkIsAvailable = false;
-
-    try {
-      const response = await fetch("/api/submissions", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-
-      if (!response.ok) {
-        throw new Error("Submission failed");
-      }
-      const body = (await response.json()) as { stored?: boolean };
-      shortLinkIsAvailable = Boolean(body.stored);
-    } catch {
-      setSubmitError("현장 집계 저장은 실패했지만 결과는 볼 수 있어요.");
-    } finally {
-      router.push(
-        shortLinkIsAvailable ? `/r/${shareId}` : `/result?r=${encodeURIComponent(resultCode)}`,
-      );
-    }
+    submitInBackground(payload);
+    router.push(
+      hasLocalFallback ? `/r/${shareId}?local=1` : `/result?r=${encodeURIComponent(resultCode)}`,
+    );
   }
 
   return (
@@ -118,7 +102,7 @@ export function PlayExperience() {
           title="질투 통역소"
           prompt={
             <>
-              나는 파트너가 <span className="blank" /> 때 질투를 느낀다.
+              나는 파트너가 <span className="blank" /> 질투를 느낀다.
             </>
           }
           options={jealousyTriggerOptions}
@@ -209,8 +193,6 @@ export function PlayExperience() {
         </section>
       )}
 
-      {submitError && <p className="status-line">{submitError}</p>}
-
       <div className="nav-row">
         <button
           className="button secondary"
@@ -236,12 +218,34 @@ export function PlayExperience() {
             type="button"
             onClick={finish}
           >
-            {isSubmitting ? "제출 중" : "관계 모양 보기"}
+            {isSubmitting ? "결과 여는 중" : "관계 모양 보기"}
           </button>
         )}
       </div>
     </section>
   );
+}
+
+function submitInBackground(payload: SubmissionPayload) {
+  void fetch("/api/submissions", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+    keepalive: true,
+  }).catch((error) => {
+    console.error("Failed to submit response", error);
+  });
+}
+
+function saveTransientResult(shareId: string, payload: SharePayload) {
+  if (typeof window === "undefined") return false;
+
+  try {
+    window.sessionStorage.setItem(transientResultKey(shareId), JSON.stringify(payload));
+    return true;
+  } catch {
+    return false;
+  }
 }
 
 function ChoiceStep({

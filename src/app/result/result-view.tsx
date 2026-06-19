@@ -95,10 +95,10 @@ export function ResultContent({
       )}
 
       <div className="wall-section">
-        <span className="pill">내가 고른 합의 요소</span>
+        <span className="pill">질투가 알려준 욕구</span>
         <div className="quote-cloud">
-          {relationshipLabels.map((label, index) => (
-            <span className="quote" key={`relationship-${index}-${label}`}>
+          {jealousyLabels.map((label, index) => (
+            <span className="quote" key={`jealousy-need-${index}-${label}`}>
               {label}
             </span>
           ))}
@@ -106,10 +106,10 @@ export function ResultContent({
       </div>
 
       <div className="wall-section">
-        <span className="pill">질투가 알려준 욕구</span>
+        <span className="pill">내가 고른 합의 요소</span>
         <div className="quote-cloud">
-          {jealousyLabels.map((label, index) => (
-            <span className="quote" key={`jealousy-need-${index}-${label}`}>
+          {relationshipLabels.map((label, index) => (
+            <span className="quote" key={`relationship-${index}-${label}`}>
               {label}
             </span>
           ))}

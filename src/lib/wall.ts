@@ -31,9 +31,9 @@ export const sampleWallSummary: WallSummary = {
   configured: false,
   total: 24,
   jealousyTriggers: [
-    { label: "다른 사람과 있느라 연락이 없을", count: 16 },
-    { label: "전애인 얘기할", count: 10 },
-    { label: "취미/덕질에 몰두할", count: 8 },
+    { label: "다른 사람과 있느라 연락이 없을 때", count: 16 },
+    { label: "전애인 얘기할 때", count: 10 },
+    { label: "취미/덕질에 몰두할 때", count: 8 },
   ],
   relationshipAreas: [
     { label: "함께하는 시간", count: 18 },

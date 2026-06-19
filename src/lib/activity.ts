@@ -41,18 +41,18 @@ export type WallSummary = {
 };
 
 export const jealousyTriggerOptions: ChoiceOption[] = [
-  { id: "special-friendship", label: "남다른 우정의 소유자일", color: "pink" },
-  { id: "workaholic", label: "워커홀릭일", color: "lime" },
-  { id: "hobby-fandom", label: "취미/덕질에 몰두할", color: "yellow" },
-  { id: "ex-talk", label: "전애인 얘기할", color: "purple" },
-  { id: "no-contact-with-others", label: "다른 사람과 있느라 연락이 없을", color: "blue" },
-  { id: "family-attachment", label: "원가족에 대한 애착이 강할", color: "orange" },
-  { id: "cares-for-my-people", label: "내 친구/지인을 잘 챙겨줄", color: "green" },
-  { id: "alone-time-long", label: "혼자만의 시간을 오래 원할", color: "pink" },
-  { id: "sns-intimacy", label: "SNS에서 누군가와 친밀하게 반응할", color: "lime" },
-  { id: "late-important-talk", label: "중요한 이야기를 나중에 공유할", color: "yellow" },
-  { id: "sudden-plan-change", label: "약속을 갑자기 바꿀", color: "purple" },
-  { id: "new-person-spark", label: "새로운 사람에게 설레는 것처럼 보일", color: "blue" },
+  { id: "special-friendship", label: "남다른 우정의 소유자일 때", color: "pink" },
+  { id: "workaholic", label: "워커홀릭일 때", color: "lime" },
+  { id: "hobby-fandom", label: "취미/덕질에 몰두할 때", color: "yellow" },
+  { id: "ex-talk", label: "전애인 얘기할 때", color: "purple" },
+  { id: "no-contact-with-others", label: "다른 사람과 있느라 연락이 없을 때", color: "blue" },
+  { id: "family-attachment", label: "원가족에 대한 애착이 강할 때", color: "orange" },
+  { id: "cares-for-my-people", label: "내 친구/지인을 잘 챙겨줄 때", color: "green" },
+  { id: "alone-time-long", label: "혼자만의 시간을 오래 원할 때", color: "pink" },
+  { id: "sns-intimacy", label: "SNS에서 누군가와 친밀하게 반응할 때", color: "lime" },
+  { id: "late-important-talk", label: "중요한 이야기를 나중에 공유할 때", color: "yellow" },
+  { id: "sudden-plan-change", label: "약속을 갑자기 바꿀 때", color: "purple" },
+  { id: "new-person-spark", label: "새로운 사람에게 설레는 것처럼 보일 때", color: "blue" },
 ];
 
 export const relationshipOptions: ChoiceOption[] = [
