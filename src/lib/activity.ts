@@ -87,10 +87,11 @@ export const jealousyOptions: ChoiceOption[] = [
   { id: "choice", label: "내 선택권", color: "orange" },
   { id: "control", label: "통제감", color: "purple" },
   { id: "superiority", label: "우월감", color: "blue" },
+  { id: "non-comparison", label: "비교하지 않는 태도", color: "orange" },
   { id: "stability", label: "안정감", color: "green" },
   { id: "trust", label: "합의가 지켜졌다는 신뢰", color: "green" },
   { id: "alone-time", label: "혼자 진정할 시간", color: "yellow" },
-  { id: "unknown", label: "아직 모르겠음", color: "lime" },
+  { id: "unknown", label: "잘 모르겠음", color: "lime" },
   { id: "never", label: "질투해본 적 없음", color: "pink" },
 ];
 

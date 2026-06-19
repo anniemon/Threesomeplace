@@ -17,7 +17,7 @@ export default function Home() {
 
         <section className="hero-grid">
           <div className="panel hero-copy">
-            <h1 className="hero-title">내가 원하는 <br / > 관계의 모양은 무엇일까?</h1>
+            <h1 className="hero-title">내가 원하는 관계의 모양은 무엇일까?</h1>
             <p className="hero-text">
               나에게 잘 맞는 관계의 구성 요소를 직접 조립해 만들어보아요.
               <br />
