@@ -1,20 +1,17 @@
 import Link from "next/link";
 import { hasSheetsCredentials, readSubmissionByShareId } from "@/lib/google-sheets";
-import { ResultContent } from "@/app/result/result-view";
-import { SharedResultFallback } from "./shared-result-fallback";
+import { MissingResult, ResultContent } from "@/app/result/result-view";
 import type { SharePayload } from "@/lib/result-code";
 
 export const dynamic = "force-dynamic";
 
 export default async function SharedResultPage({
   params,
-  searchParams,
 }: {
   params: Promise<{ shareId: string }>;
-  searchParams: Promise<{ local?: string }>;
 }) {
-  const [{ shareId }, query] = await Promise.all([params, searchParams]);
-  const result = query.local === "1" ? null : await getSharedResult(shareId);
+  const { shareId } = await params;
+  const result = await getSharedResult(shareId);
 
   return (
     <main className="app-shell">
@@ -27,11 +24,7 @@ export default async function SharedResultPage({
             </span>
           </Link>
         </header>
-        {result ? (
-          <ResultContent result={result} sharePath={`/r/${shareId}`} />
-        ) : (
-          <SharedResultFallback shareId={shareId} />
-        )}
+        {result ? <ResultContent result={result} sharePath={`/r/${shareId}`} /> : <MissingResult />}
       </div>
     </main>
   );

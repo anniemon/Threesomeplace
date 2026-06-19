@@ -11,7 +11,6 @@ import {
 } from "@/lib/activity";
 import { buildRecipeTitle } from "@/lib/recipe";
 import { encodeResult, type SharePayload } from "@/lib/result-code";
-import { transientResultKey } from "@/lib/transient-result";
 
 type Sentences = SubmissionPayload["sentences"];
 
@@ -80,11 +79,10 @@ export function PlayExperience() {
       recipeTitle,
     };
     const resultCode = encodeResult(sharePayload);
-    const hasLocalFallback = saveTransientResult(shareId, sharePayload);
 
     submitInBackground(payload);
     router.push(
-      hasLocalFallback ? `/r/${shareId}?local=1` : `/result?r=${encodeURIComponent(resultCode)}`,
+      `/result?r=${encodeURIComponent(resultCode)}&sid=${encodeURIComponent(shareId)}`,
     );
   }
 
@@ -235,17 +233,6 @@ function submitInBackground(payload: SubmissionPayload) {
   }).catch((error) => {
     console.error("Failed to submit response", error);
   });
-}
-
-function saveTransientResult(shareId: string, payload: SharePayload) {
-  if (typeof window === "undefined") return false;
-
-  try {
-    window.sessionStorage.setItem(transientResultKey(shareId), JSON.stringify(payload));
-    return true;
-  } catch {
-    return false;
-  }
 }
 
 function ChoiceStep({

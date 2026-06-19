@@ -16,11 +16,17 @@ import { decodeResult, type SharePayload } from "@/lib/result-code";
 export function ResultView() {
   const searchParams = useSearchParams();
   const encoded = searchParams.get("r");
+  const shareId = searchParams.get("sid");
   const result = useMemo(() => (encoded ? decodeResult(encoded) : null), [encoded]);
 
   if (!result || !encoded) return <MissingResult />;
 
-  return <ResultContent result={result} sharePath={`/result?r=${encodeURIComponent(encoded)}`} />;
+  return (
+    <ResultContent
+      result={result}
+      sharePath={shareId ? `/r/${shareId}` : `/result?r=${encodeURIComponent(encoded)}`}
+    />
+  );
 }
 
 export function ResultContent({
