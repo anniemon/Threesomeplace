@@ -21,6 +21,8 @@ export const sheetHeaders = [
   "shareId",
   "jealousyTriggers",
   "jealousyTriggerOther",
+  "doTogether",
+  "partnerRole",
 ];
 
 export type SheetRow = Record<(typeof sheetHeaders)[number], string>;
@@ -47,10 +49,12 @@ export const sampleWallSummary: WallSummary = {
     { label: "충분한 정보", count: 8 },
   ],
   sentences: {
-    important: ["각자의 속도", "다시 묻는 시간", "불안을 숨기지 않는 것"],
-    decideSeparately: ["친구와 만나는 방식", "혼자 보내는 밤", "나의 몸"],
+    important: ["시간 약속 지키기", "다시 묻는 시간", "불안을 숨기지 않는 것"],
+    decideSeparately: ["여가 시간을 보내는 법", "혼자 보내는 밤", "나의 몸"],
+    doTogether: ["생일", "여행", "계절마다 쉬는 날"],
     notifyBefore: ["새로운 관계가 깊어지기", "공개 범위를 바꾸기", "일정이 크게 달라지기"],
-    undefinedThing: ["우리의 이름", "미래의 모양", "지금 이 감정"],
+    undefinedThing: ["우리 관계의 이름", "미래의 모양", "지금 이 감정"],
+    partnerRole: ["기댈 수 있는 존재", "솔직한 사람", "같이 웃는 사람"],
   },
 };
 
@@ -68,8 +72,10 @@ export function rowsToSummary(rows: SheetRow[], configured = true): WallSummary 
     sentences: {
       important: collectSentences(rows, "important"),
       decideSeparately: collectSentences(rows, "decideSeparately"),
+      doTogether: collectSentences(rows, "doTogether"),
       notifyBefore: collectSentences(rows, "notifyBefore"),
       undefinedThing: collectSentences(rows, "undefinedThing"),
+      partnerRole: collectSentences(rows, "partnerRole"),
     },
   };
 }

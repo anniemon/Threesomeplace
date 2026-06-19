@@ -140,20 +140,28 @@ function WeightedWords({
 function SentenceWall({ summary }: { summary: WallSummary }) {
   const sentenceGroups = [
     {
-      title: "나는 ______이 중요하다",
+      title: "나는 ______이(가) 중요하다",
       sentences: summary.sentences.important,
     },
     {
-      title: "______은 각자 결정하고 싶다",
+      title: "______은(는) 각자 결정하고 싶다",
       sentences: summary.sentences.decideSeparately,
+    },
+    {
+      title: "______(은)는 꼭 함께 하고 싶다",
+      sentences: summary.sentences.doTogether,
     },
     {
       title: "______ 전에는 알려주면 좋겠다",
       sentences: summary.sentences.notifyBefore,
     },
     {
-      title: "아직 정의하고 싶지 않은 것은 ______이다",
+      title: "아직 정의하고 싶지 않은 것은 ______(이)다",
       sentences: summary.sentences.undefinedThing,
+    },
+    {
+      title: "나는 파트너에게 ______ 이고 싶다",
+      sentences: summary.sentences.partnerRole,
     },
   ];
   const hasSentences = sentenceGroups.some(
@@ -220,9 +228,12 @@ function LoadingWall({ message }: { message: string }) {
         <span className="pill color-yellow">문장완성형 합의점검표</span>
         <div className="sentence-groups" aria-hidden="true">
           {[
-            "나는 ______이 중요하다",
-            "______은 각자 결정하고 싶다",
+            "나는 ______이(가) 중요하다",
+            "______은(는) 각자 결정하고 싶다",
+            "______(은)는 꼭 함께 하고 싶다",
             "______ 전에는 알려주면 좋겠다",
+            "아직 정의하고 싶지 않은 것은 ______(이)다",
+            "나는 파트너에게 ______ 이고 싶다",
           ].map((title) => (
             <section className="sentence-group" key={title}>
               <h2 className="sentence-group-title">{title}</h2>

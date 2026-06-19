@@ -35,6 +35,14 @@ export function ResultContent({
     ...result,
     jealousyTriggers: result.jealousyTriggers ?? [],
     jealousyTriggerOther: result.jealousyTriggerOther ?? "",
+    sentences: {
+      important: result.sentences.important ?? "",
+      decideSeparately: result.sentences.decideSeparately ?? "",
+      doTogether: result.sentences.doTogether ?? "",
+      notifyBefore: result.sentences.notifyBefore ?? "",
+      undefinedThing: result.sentences.undefinedThing ?? "",
+      partnerRole: result.sentences.partnerRole ?? "",
+    },
     sessionId: "shared",
   };
   const summary = buildRecipeSummary(payload);
@@ -120,14 +128,20 @@ export function ResultContent({
         <div className="quote-cloud">
           {payload.sentences.important && (
             <span className="quote">
-              <small>나는 ______이 중요하다</small>
+              <small>나는 ______이(가) 중요하다</small>
               {payload.sentences.important}
             </span>
           )}
           {payload.sentences.decideSeparately && (
             <span className="quote">
-              <small>______은 각자 결정하고 싶다</small>
+              <small>______은(는) 각자 결정하고 싶다</small>
               {payload.sentences.decideSeparately}
+            </span>
+          )}
+          {payload.sentences.doTogether && (
+            <span className="quote">
+              <small>______(은)는 꼭 함께 하고 싶다</small>
+              {payload.sentences.doTogether}
             </span>
           )}
           {payload.sentences.notifyBefore && (
@@ -138,8 +152,14 @@ export function ResultContent({
           )}
           {payload.sentences.undefinedThing && (
             <span className="quote">
-              <small>아직 정의하고 싶지 않은 것은</small>
+              <small>아직 정의하고 싶지 않은 것은 ______(이)다</small>
               {payload.sentences.undefinedThing}
+            </span>
+          )}
+          {payload.sentences.partnerRole && (
+            <span className="quote">
+              <small>나는 파트너에게 ______ 이고 싶다</small>
+              {payload.sentences.partnerRole}
             </span>
           )}
         </div>

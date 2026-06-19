@@ -16,8 +16,10 @@ export type SubmissionPayload = {
   sentences: {
     important: string;
     decideSeparately: string;
+    doTogether: string;
     notifyBefore: string;
     undefinedThing: string;
+    partnerRole: string;
   };
   recipeTitle: string;
 };
@@ -30,8 +32,10 @@ export type WallSummary = {
   sentences: {
     important: string[];
     decideSeparately: string[];
+    doTogether: string[];
     notifyBefore: string[];
     undefinedThing: string[];
+    partnerRole: string[];
   };
   total: number;
 };

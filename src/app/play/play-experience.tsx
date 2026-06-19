@@ -17,8 +17,10 @@ type Sentences = SubmissionPayload["sentences"];
 const emptySentences: Sentences = {
   important: "",
   decideSeparately: "",
+  doTogether: "",
   notifyBefore: "",
   undefinedThing: "",
+  partnerRole: "",
 };
 
 export function PlayExperience() {
@@ -169,16 +171,22 @@ export function PlayExperience() {
           <h1 className="question-title">합의 점검표</h1>
           <p className="question-text">내 관계의 빈칸을 직접 채워요.</p>
           <SentenceField
-            label="나는 ______이 중요하다."
+            label="나는 ______이(가) 중요하다."
             value={sentences.important}
             onChange={(value) => setSentences({ ...sentences, important: value })}
-            placeholder="예: 약속을 다시 확인하는 시간"
+            placeholder="예: 시간 약속 지키기"
           />
           <SentenceField
-            label="______은 각자 결정하고 싶다."
+            label="______은(는) 각자 결정하고 싶다."
             value={sentences.decideSeparately}
             onChange={(value) => setSentences({ ...sentences, decideSeparately: value })}
-            placeholder="예: 친구와 만나는 방식"
+            placeholder="예: 여가 시간을 보내는 법"
+          />
+          <SentenceField
+            label="______(은)는 꼭 함께 하고 싶다."
+            value={sentences.doTogether}
+            onChange={(value) => setSentences({ ...sentences, doTogether: value })}
+            placeholder="예: 생일, 여행"
           />
           <SentenceField
             label="______ 전에는 알려주면 좋겠다."
@@ -187,10 +195,16 @@ export function PlayExperience() {
             placeholder="예: 새로운 관계가 깊어지기"
           />
           <SentenceField
-            label="아직 정의하고 싶지 않은 것은 ______이다."
+            label="아직 정의하고 싶지 않은 것은 ______(이)다."
             value={sentences.undefinedThing}
             onChange={(value) => setSentences({ ...sentences, undefinedThing: value })}
-            placeholder="예: 우리의 이름"
+            placeholder="예: 우리 관계의 이름"
+          />
+          <SentenceField
+            label="나는 파트너에게 ______ 이고 싶다."
+            value={sentences.partnerRole}
+            onChange={(value) => setSentences({ ...sentences, partnerRole: value })}
+            placeholder="예: 기댈 수 있는 존재"
           />
         </section>
       )}
@@ -317,8 +331,10 @@ function trimSentences(sentences: Sentences): Sentences {
   return {
     important: sentences.important.trim(),
     decideSeparately: sentences.decideSeparately.trim(),
+    doTogether: sentences.doTogether.trim(),
     notifyBefore: sentences.notifyBefore.trim(),
     undefinedThing: sentences.undefinedThing.trim(),
+    partnerRole: sentences.partnerRole.trim(),
   };
 }
 

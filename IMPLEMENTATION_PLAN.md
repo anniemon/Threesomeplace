@@ -12,7 +12,7 @@ Build a mobile-first web app for the booth activity. Participants enter from a Q
 
 2. Participant flow `/play`
    - Card 1: 질투 통역소
-     - Prompt: `나는 _______때 질투를 느낀다.`
+     - Prompt: `나는 파트너가 _______때 질투를 느낀다.`
      - Multi-select chips plus an optional direct input.
    - Card 2: 질투 통역소
      - Prompt: `내가 질투를 느꼈을 때 실제로 필요했던 것은 ______다.`
@@ -22,10 +22,12 @@ Build a mobile-first web app for the booth activity. Participants enter from a Q
      - Multi-select chips plus an optional direct input.
    - Card 4: 문장완성형 합의점검표
      - Free text fields:
-       - `나는 ______이 중요하다.`
-       - `______은 각자 결정하고 싶다.`
+       - `나는 ______이(가) 중요하다.`
+       - `______은(는) 각자 결정하고 싶다.`
+       - `______(은)는 꼭 함께 하고 싶다.`
        - `______ 전에는 알려주면 좋겠다.`
-       - `아직 정의하고 싶지 않은 것은 ______이다.`
+       - `아직 정의하고 싶지 않은 것은 ______(이)다.`
+       - `나는 파트너에게 ______ 이고 싶다.`
 
 3. Result page `/result`
    - Generate a relationship recipe title and short summary from selected answers.
@@ -52,8 +54,10 @@ Each Google Sheets row should include:
 - `jealousyOther`
 - `important`
 - `decideSeparately`
+- `doTogether`
 - `notifyBefore`
 - `undefinedThing`
+- `partnerRole`
 - `recipeTitle`
 
 All values are anonymous. `sessionId` is a random browser-generated identifier, not a user identity.
