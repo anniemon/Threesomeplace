@@ -26,9 +26,10 @@ export const sampleWallSummary: WallSummary = {
   configured: false,
   total: 24,
   relationshipAreas: [
-    { label: "시간과 연락", count: 18 },
-    { label: "개인 공간", count: 12 },
-    { label: "성적 관계와 성건강", count: 9 },
+    { label: "함께하는 시간", count: 18 },
+    { label: "연락 빈도", count: 14 },
+    { label: "개인적인 공간과 시간", count: 12 },
+    { label: "스킨십과 성생활", count: 9 },
     { label: "가족·친구·SNS 공개 범위", count: 7 },
   ],
   jealousyNeeds: [
@@ -69,9 +70,11 @@ function countChoices(
   options: typeof relationshipOptions,
 ) {
   const counts = new Map<string, number>();
+  const optionIds = new Set(options.map((option) => option.id));
 
   rows.forEach((row) => {
     splitCell(row[key]).forEach((value) => {
+      if (!optionIds.has(value)) return;
       const label = labelById(options, value);
       counts.set(label, (counts.get(label) ?? 0) + 1);
     });

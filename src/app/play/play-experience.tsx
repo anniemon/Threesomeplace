@@ -90,16 +90,16 @@ export function PlayExperience() {
       <div className="step-line">
         <span className="pill">카드 {step + 1} / 3</span>
         <span className="pill">
-          {step === 0 ? "합의 영역 고르기" : step === 1 ? "질투 통역소" : "합의 점검표"}
+          {step === 0 ? "합의 요소 고르기" : step === 1 ? "질투 통역소" : "합의 점검표"}
         </span>
       </div>
 
       {step === 0 && (
         <ChoiceStep
-          title="합의 영역 고르기"
+          title="합의 요소 고르기"
           prompt={
             <>
-              내가 파트너와의 관계에서 꼭 합의하고 싶은 영역은{" "}
+              내가 파트너와의 관계에서 꼭 합의하고 싶은 요소는{" "}
               <span className="blank" /> 다.
             </>
           }

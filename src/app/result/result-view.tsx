@@ -71,7 +71,7 @@ export function ResultContent({
       </div>
 
       <div className="wall-section">
-        <span className="pill">내가 섞은 합의 영역</span>
+        <span className="pill">내가 고른 합의 요소</span>
         <div className="quote-cloud">
           {relationshipLabels.map((label) => (
             <span className="quote" key={label}>

@@ -17,7 +17,7 @@ const rotations = [-4, 2, -1, 4, -3, 1, 3, -2];
 const loadingWords = [
   "불러오는 중",
   "관계 언어",
-  "합의 영역",
+  "합의 요소",
   "질투의 필요",
   "익명 응답",
 ];
@@ -82,7 +82,7 @@ export function WallView() {
         {summary ? (
           <>
             <WeightedWords
-              title="합의 영역 고르기: 꼭 합의하고 싶은 영역"
+              title="합의 요소 고르기: 꼭 합의하고 싶은 요소"
               words={summary.relationshipAreas}
             />
             <WeightedWords
@@ -208,7 +208,7 @@ function LoadingWall({ message }: { message: string }) {
 
   return (
     <>
-      <LoadingWordCloud title="합의 영역 고르기: 꼭 합의하고 싶은 영역" />
+      <LoadingWordCloud title="합의 요소 고르기: 꼭 합의하고 싶은 요소" />
       <LoadingWordCloud title="질투 통역소: 실제로 필요했던 것" />
       <section className="wall-section">
         <span className="pill color-yellow">문장완성형 합의점검표</span>

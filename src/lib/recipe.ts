@@ -35,8 +35,8 @@ export function buildRecipeSummary(payload: SubmissionPayload) {
   );
 
   const firstLine = relationshipLabels.length
-    ? `합의하고 싶은 영역: ${relationshipLabels.join(", ")}`
-    : "아직 합의하고 싶은 영역을 고르는 중";
+    ? `합의하고 싶은 요소: ${relationshipLabels.join(", ")}`
+    : "아직 합의하고 싶은 요소를 고르는 중";
   const secondLine = jealousyLabels.length
     ? `질투가 말해준 필요: ${jealousyLabels.join(", ")}`
     : "질투의 언어는 아직 번역 중";

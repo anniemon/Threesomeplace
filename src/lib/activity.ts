@@ -34,14 +34,17 @@ export type WallSummary = {
 };
 
 export const relationshipOptions: ChoiceOption[] = [
-  { id: "time-contact", label: "시간과 연락", color: "pink" },
-  { id: "sex-health", label: "성적 관계와 성건강", color: "lime" },
-  { id: "home-space", label: "동거와 개인 공간", color: "yellow" },
-  { id: "money", label: "돈과 생활비", color: "purple" },
+  { id: "time-contact", label: "함께하는 시간", color: "pink" },
+  { id: "contact-frequency", label: "연락 빈도", color: "lime" },
+  { id: "sex-health", label: "스킨십과 성생활", color: "yellow" },
+  { id: "home-space", label: "동거 여부", color: "purple" },
+  { id: "personal-space", label: "개인적인 공간과 시간", color: "green" },
+  { id: "money", label: "데이트 비용이나 생활비", color: "orange" },
   { id: "hobby", label: "취미 생활", color: "blue" },
-  { id: "work-study", label: "일과 공부", color: "orange" },
   { id: "public-range", label: "가족·친구·SNS 공개 범위", color: "green" },
-  { id: "future-law", label: "미래 계획과 법적 결합", color: "yellow" },
+  { id: "future-law", label: "가족 계획", color: "yellow" },
+  { id: "open-relationship", label: "오픈 릴레이션십", color: "pink" },
+  { id: "conflict-resolution", label: "갈등 해결 방식", color: "lime" },
 ];
 
 export const jealousyOptions: ChoiceOption[] = [

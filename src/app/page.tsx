@@ -6,12 +6,10 @@ export default function Home() {
     <main className="app-shell">
       <div className="container">
         <header className="topbar">
-          <Link className="brand" href="/">
-            <span className="brand-mark">3</span>
-            <span>
-              쓰리썸
-              <br />
-              플레이스
+          <Link className="brand" href="/" aria-label="쓰리썸플레이스 홈">
+            <span className="brand-mark">
+              <span>쓰리썸</span>
+              <span>플레이스</span>
             </span>
           </Link>
           <span className="pill">참여형 설문</span>
@@ -21,7 +19,7 @@ export default function Home() {
           <div className="panel hero-copy">
             <h1 className="hero-title">내가 원하는 <br / > 관계의 모양은 무엇일까?</h1>
             <p className="hero-text">
-              내가 만들고 싶은 관계의 구성 요소를 직접 조립해보아요.
+              나에게 잘 맞는 관계의 구성 요소를 직접 조립해 만들어보아요.
               <br />
               결과는 링크로 공유할 수 있어요.
             </p>
