@@ -10,3 +10,15 @@
 - `/wall`: 현장 전시 월
 - `/api/submissions`: Google Sheets 익명 응답 저장
 - `/api/wall`: Google Sheets 응답 집계
+- `/api/interpretation`: OpenAI 기반 관계 모양 해석 생성
+
+## Environment Variables
+
+- `GOOGLE_SHEETS_SPREADSHEET_ID`: Google Sheet 문서 ID
+- `GOOGLE_SHEETS_SHEET_NAME`: 응답을 저장할 시트 이름, 기본값 `responses`
+- `GOOGLE_SHEETS_CLIENT_EMAIL`: 서비스 계정 이메일
+- `GOOGLE_SHEETS_PRIVATE_KEY`: 서비스 계정 private key. 줄바꿈은 `\n` 형태로 넣어도 됩니다.
+- `OPENAI_API_KEY`: 결과 해석 생성에 사용할 OpenAI API 키
+- `OPENAI_MODEL`: 선택 사항. 기본값 `gpt-5.4-mini`
+
+결과 해석 API는 같은 IP 기준 1분에 5회까지 요청할 수 있습니다. 공유 결과에 연결된 해석은 Google Sheets의 `interpretation` 컬럼에 저장되어 같은 링크에서 다시 볼 수 있습니다.

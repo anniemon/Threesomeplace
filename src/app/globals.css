@@ -463,6 +463,73 @@ a {
   opacity: 0.7;
 }
 
+.interpretation-panel {
+  display: grid;
+  justify-items: start;
+  gap: 12px;
+  margin-top: 26px;
+  padding-top: 22px;
+  border-top: 1.5px dashed var(--ink);
+}
+
+.interpretation-button {
+  min-width: min(100%, 280px);
+}
+
+.interpretation-copy {
+  display: grid;
+  gap: 12px;
+  width: 100%;
+  margin-top: 4px;
+  padding: 16px;
+  border: 1.5px dashed var(--ink);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.62);
+  font-size: 15px;
+  font-weight: 760;
+  line-height: 1.55;
+}
+
+.interpretation-copy p {
+  margin: 0;
+}
+
+.loading-dots {
+  display: inline-flex;
+  gap: 5px;
+  min-height: 18px;
+}
+
+.loading-dots span {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--pink);
+  animation: loading-bounce 0.9s infinite ease-in-out;
+}
+
+.loading-dots span:nth-child(1) {
+  animation-delay: -0.18s;
+}
+
+.loading-dots span:nth-child(3) {
+  animation-delay: 0.18s;
+}
+
+@keyframes loading-bounce {
+  0%,
+  80%,
+  100% {
+    transform: scale(0.7);
+    opacity: 0.45;
+  }
+
+  40% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
 .book-recommendation {
   display: grid;
   justify-items: start;

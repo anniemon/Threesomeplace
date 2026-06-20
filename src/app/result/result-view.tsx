@@ -38,6 +38,9 @@ export function ResultContent({
   sharePath: string;
 }) {
   const [copied, setCopied] = useState(false);
+  const [interpretation, setInterpretation] = useState(result.interpretation ?? "");
+  const [interpretationError, setInterpretationError] = useState("");
+  const [isInterpreting, setIsInterpreting] = useState(false);
   const payload: SubmissionPayload = {
     ...result,
     jealousyTriggers: result.jealousyTriggers ?? [],
@@ -56,6 +59,18 @@ export function ResultContent({
     if (typeof window === "undefined") return "";
     return new URL(sharePath, window.location.origin).toString();
   }, [sharePath]);
+  const relationshipLabels = [
+    ...payload.relationshipAreas.map((id) => labelById(relationshipOptions, id)),
+    payload.relationshipOther,
+  ].filter(Boolean);
+  const jealousyTriggerLabels = [
+    ...(payload.jealousyTriggers ?? []).map((id) => labelById(jealousyTriggerOptions, id)),
+    payload.jealousyTriggerOther,
+  ].filter(Boolean);
+  const jealousyLabels = [
+    ...payload.jealousyNeeds.map((id) => labelById(jealousyOptions, id)),
+    payload.jealousyOther,
+  ].filter(Boolean);
 
   async function share() {
     if (!shareUrl) return;
@@ -71,18 +86,44 @@ export function ResultContent({
     setCopied(true);
   }
 
-  const relationshipLabels = [
-    ...payload.relationshipAreas.map((id) => labelById(relationshipOptions, id)),
-    payload.relationshipOther,
-  ].filter(Boolean);
-  const jealousyTriggerLabels = [
-    ...(payload.jealousyTriggers ?? []).map((id) => labelById(jealousyTriggerOptions, id)),
-    payload.jealousyTriggerOther,
-  ].filter(Boolean);
-  const jealousyLabels = [
-    ...payload.jealousyNeeds.map((id) => labelById(jealousyOptions, id)),
-    payload.jealousyOther,
-  ].filter(Boolean);
+  async function interpretResult() {
+    if (isInterpreting) return;
+
+    setIsInterpreting(true);
+    setInterpretationError("");
+
+    try {
+      const response = await fetch("/api/interpretation", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          shareId: payload.shareId,
+          jealousyTriggers: jealousyTriggerLabels,
+          jealousyNeeds: jealousyLabels,
+          relationshipAreas: relationshipLabels,
+          sentences: payload.sentences,
+        }),
+      });
+      const data = (await response.json()) as {
+        interpretation?: string;
+        error?: string;
+      };
+
+      if (!response.ok || !data.interpretation) {
+        throw new Error(data.error);
+      }
+
+      setInterpretation(data.interpretation);
+    } catch (error) {
+      setInterpretationError(
+        error instanceof Error && error.message
+          ? error.message
+          : "죄송합니다. 요청이 너무 많아 지금은 서비스가 불가합니다. 잠시 후 다시 시도해주세요.",
+      );
+    } finally {
+      setIsInterpreting(false);
+    }
+  }
 
   return (
     <section className="panel card">
@@ -163,6 +204,38 @@ export function ResultContent({
             </span>
           )}
         </div>
+      </div>
+
+      <div className="interpretation-panel">
+        <span className="pill color-purple">관계 모양 해석</span>
+        <p className="status-line">
+          선택한 말들을 바탕으로 관계의 방향을 짧게 풀어봅니다.
+        </p>
+        {!interpretation && (
+          <button
+            className="button pink interpretation-button"
+            type="button"
+            onClick={interpretResult}
+            disabled={isInterpreting}
+          >
+            {isInterpreting ? "해석을 불러오는 중" : "나의 관계 모양 해석 보기"}
+          </button>
+        )}
+        {isInterpreting && (
+          <span className="loading-dots" aria-label="해석 생성 중">
+            <span />
+            <span />
+            <span />
+          </span>
+        )}
+        {interpretation && (
+          <div className="interpretation-copy">
+            {interpretation.split("\n").map((line, index) =>
+              line.trim() ? <p key={`${index}-${line}`}>{line}</p> : null,
+            )}
+          </div>
+        )}
+        {interpretationError && <p className="notice">{interpretationError}</p>}
       </div>
 
       <div className="book-recommendation">

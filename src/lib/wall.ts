@@ -23,6 +23,7 @@ export const sheetHeaders = [
   "jealousyTriggerOther",
   "doTogether",
   "partnerRole",
+  "interpretation",
 ];
 
 export type SheetRow = Record<(typeof sheetHeaders)[number], string>;
@@ -59,9 +60,24 @@ export const sampleWallSummary: WallSummary = {
 };
 
 export function rowsToSummary(rows: SheetRow[], configured = true): WallSummary {
-  const jealousyTriggerCounts = countChoices(rows, "jealousyTriggers", jealousyTriggerOptions);
-  const relationshipCounts = countChoices(rows, "relationshipAreas", relationshipOptions);
-  const jealousyCounts = countChoices(rows, "jealousyNeeds", jealousyOptions);
+  const jealousyTriggerCounts = countChoices(
+    rows,
+    "jealousyTriggers",
+    "jealousyTriggerOther",
+    jealousyTriggerOptions,
+  );
+  const relationshipCounts = countChoices(
+    rows,
+    "relationshipAreas",
+    "relationshipOther",
+    relationshipOptions,
+  );
+  const jealousyCounts = countChoices(
+    rows,
+    "jealousyNeeds",
+    "jealousyOther",
+    jealousyOptions,
+  );
 
   return {
     configured,
@@ -83,6 +99,7 @@ export function rowsToSummary(rows: SheetRow[], configured = true): WallSummary 
 function countChoices(
   rows: SheetRow[],
   key: "jealousyTriggers" | "relationshipAreas" | "jealousyNeeds",
+  otherKey: "jealousyTriggerOther" | "relationshipOther" | "jealousyOther",
   options: typeof relationshipOptions,
 ) {
   const counts = new Map<string, number>();
@@ -93,6 +110,10 @@ function countChoices(
       if (!optionIds.has(value)) return;
       const label = labelById(options, value);
       counts.set(label, (counts.get(label) ?? 0) + 1);
+    });
+
+    splitCell(row[otherKey]).forEach((value) => {
+      counts.set(value, (counts.get(value) ?? 0) + 1);
     });
   });
 
