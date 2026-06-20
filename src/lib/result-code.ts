@@ -1,8 +1,6 @@
 import type { SubmissionPayload } from "./activity";
 
-export type SharePayload = Omit<SubmissionPayload, "sessionId"> & {
-  interpretation?: string;
-};
+export type SharePayload = Omit<SubmissionPayload, "sessionId">;
 
 export function encodeResult(payload: SharePayload) {
   const json = JSON.stringify(payload);

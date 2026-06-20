@@ -39,7 +39,7 @@ export async function appendSubmission(payload: SubmissionPayload) {
 
   await sheets.spreadsheets.values.append({
     spreadsheetId,
-    range: `${sheetName}!A:Q`,
+    range: `${sheetName}!A:P`,
     valueInputOption: "RAW",
     requestBody: {
       values: [
@@ -60,7 +60,6 @@ export async function appendSubmission(payload: SubmissionPayload) {
           payload.jealousyTriggerOther,
           payload.sentences.doTogether,
           payload.sentences.partnerRole,
-          "",
         ],
       ],
     },
@@ -73,7 +72,7 @@ export async function readSubmissionRows(): Promise<SheetRow[]> {
 
   const response = await sheets.spreadsheets.values.get({
     spreadsheetId,
-    range: `${sheetName}!A2:Q`,
+    range: `${sheetName}!A2:P`,
   });
 
   return (response.data.values ?? []).map((row) =>
@@ -103,37 +102,7 @@ export async function readSubmissionByShareId(shareId: string): Promise<SharePay
       partnerRole: row.partnerRole,
     },
     recipeTitle: row.recipeTitle,
-    interpretation: row.interpretation,
   };
-}
-
-export async function readInterpretationByShareId(shareId: string) {
-  const row = await readSubmissionByShareId(shareId);
-  return row?.interpretation?.trim() || null;
-}
-
-export async function saveInterpretationByShareId(shareId: string, interpretation: string) {
-  const sheets = await getSheetsClient();
-  await ensureSheet(sheets);
-
-  const response = await sheets.spreadsheets.values.get({
-    spreadsheetId,
-    range: `${sheetName}!A2:Q`,
-  });
-
-  const rows = response.data.values ?? [];
-  const shareIdIndex = sheetHeaders.indexOf("shareId");
-  const interpretationIndex = sheetHeaders.indexOf("interpretation");
-  const rowIndex = rows.findLastIndex((row) => row[shareIdIndex] === shareId);
-
-  if (rowIndex < 0 || interpretationIndex < 0) return;
-
-  await sheets.spreadsheets.values.update({
-    spreadsheetId,
-    range: `${sheetName}!${columnName(interpretationIndex + 1)}${rowIndex + 2}`,
-    valueInputOption: "RAW",
-    requestBody: { values: [[interpretation]] },
-  });
 }
 
 async function ensureSheet(sheets: sheets_v4.Sheets) {
@@ -153,7 +122,7 @@ async function ensureSheet(sheets: sheets_v4.Sheets) {
 
   const headers = await sheets.spreadsheets.values.get({
     spreadsheetId,
-    range: `${sheetName}!A1:Q1`,
+    range: `${sheetName}!A1:P1`,
   });
 
   const currentHeaders = headers.data.values?.[0] ?? [];
@@ -164,24 +133,11 @@ async function ensureSheet(sheets: sheets_v4.Sheets) {
   if (!currentHeaders.length || needsHeaderUpdate) {
     await sheets.spreadsheets.values.update({
       spreadsheetId,
-      range: `${sheetName}!A1:Q1`,
+      range: `${sheetName}!A1:P1`,
       valueInputOption: "RAW",
       requestBody: { values: [sheetHeaders] },
     });
   }
-}
-
-function columnName(index: number) {
-  let name = "";
-  let current = index;
-
-  while (current > 0) {
-    const remainder = (current - 1) % 26;
-    name = String.fromCharCode(65 + remainder) + name;
-    current = Math.floor((current - 1) / 26);
-  }
-
-  return name;
 }
 
 function splitCell(value: string) {

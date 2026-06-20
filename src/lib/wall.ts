@@ -23,7 +23,6 @@ export const sheetHeaders = [
   "jealousyTriggerOther",
   "doTogether",
   "partnerRole",
-  "interpretation",
 ];
 
 export type SheetRow = Record<(typeof sheetHeaders)[number], string>;
