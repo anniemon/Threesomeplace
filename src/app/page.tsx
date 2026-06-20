@@ -37,6 +37,9 @@ export default function Home() {
               <a className="button secondary" href={tallyUrl} target="_blank">
                 고민 상담 신청 폼 보기
               </a>
+              <Link className="button secondary" href="/wall">
+                다른 사람의 결과 보기
+              </Link>
             </div>
           </aside>
         </section>
