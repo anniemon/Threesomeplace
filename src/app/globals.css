@@ -481,6 +481,13 @@ a {
   box-shadow: 5px 5px 0 var(--shadow);
 }
 
+.author-link {
+  color: var(--pink);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
 .wall-grid {
   display: grid;
   grid-template-columns: minmax(220px, 0.48fr) minmax(0, 1.52fr);

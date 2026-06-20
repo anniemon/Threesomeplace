@@ -165,21 +165,32 @@ export function ResultContent({
         </div>
       </div>
 
-      <a
-        className="book-recommendation"
-        href="https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=342917856"
-        target="_blank"
-        rel="noreferrer"
-      >
-        <span className="pill color-lime">추천 도서 &lt;최선의 사랑&gt;, 정예인</span>
-        <Image
-          src="https://image.aladin.co.kr/product/34291/78/cover500/k742932175_1.jpg"
-          alt="최선의 사랑 책 표지"
-          width={500}
-          height={725}
-          sizes="(max-width: 620px) 64vw, 220px"
-        />
-      </a>
+      <div className="book-recommendation">
+        <span className="pill color-lime">
+          추천 도서 &lt;최선의 사랑&gt;,{" "}
+          <a
+            className="author-link"
+            href="https://litt.ly/yein_jung"
+            target="_blank"
+            rel="noreferrer"
+          >
+            정예인
+          </a>
+        </span>
+        <a
+          href="https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=342917856"
+          target="_blank"
+          rel="noreferrer"
+        >
+          <Image
+            src="https://image.aladin.co.kr/product/34291/78/cover500/k742932175_1.jpg"
+            alt="최선의 사랑 책 표지"
+            width={500}
+            height={725}
+            sizes="(max-width: 620px) 64vw, 220px"
+          />
+        </a>
+      </div>
 
       {copied && <p className="status-line">공유 링크를 복사했어요.</p>}
 
