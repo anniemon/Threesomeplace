@@ -481,6 +481,7 @@ a {
   box-shadow: 5px 5px 0 var(--shadow);
 }
 
+.book-title-link,
 .author-link {
   color: var(--pink);
   text-decoration: underline;

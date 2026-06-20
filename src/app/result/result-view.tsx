@@ -167,7 +167,16 @@ export function ResultContent({
 
       <div className="book-recommendation">
         <span className="pill color-lime">
-          추천 도서 &lt;최선의 사랑&gt;,{" "}
+          추천 도서{" "}
+          <a
+            className="book-title-link"
+            href="https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=342917856"
+            target="_blank"
+            rel="noreferrer"
+          >
+            &lt;최선의 사랑&gt;
+          </a>
+          ,{" "}
           <a
             className="author-link"
             href="https://litt.ly/yein_jung"
