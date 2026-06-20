@@ -118,8 +118,7 @@ function countChoices(
 
   return [...counts.entries()]
     .map(([label, count]) => ({ label, count }))
-    .sort((a, b) => b.count - a.count)
-    .slice(0, 8);
+    .sort((a, b) => b.count - a.count);
 }
 
 function collectSentences(rows: SheetRow[], key: keyof SheetRow) {
