@@ -176,9 +176,9 @@ export function ResultContent({
           >
             &lt;최선의 사랑&gt;
           </a>
-          ,{" "}
+          <span>,</span>
           <a
-            className="author-link"
+            className="author-link author-link-spaced"
             href="https://litt.ly/yein_jung"
             target="_blank"
             rel="noreferrer"
