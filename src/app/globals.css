@@ -522,7 +522,9 @@ a {
 
 .wall-title {
   max-width: none;
-  white-space: nowrap;
+  font-size: clamp(40px, 4.4vw, 64px);
+  line-height: 1;
+  word-break: keep-all;
 }
 
 .wall-hero-text {
@@ -643,8 +645,9 @@ a {
   }
 
   .wall-container .wall-title {
-    font-size: clamp(38px, 11vw, 52px);
+    font-size: clamp(36px, 10vw, 46px);
     line-height: 1;
+    white-space: nowrap;
   }
 
   .word-cloud {
