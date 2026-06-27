@@ -71,7 +71,7 @@ export function WallView() {
   return (
     <section className="wall-grid">
       <div className="panel hero-copy">
-        <h1 className="hero-title">관계의 말들</h1>
+        <h1 className="hero-title wall-title">관계의 말들</h1>
         <p className="hero-text wall-hero-text">
           객관식 응답은 많이 나온 말일수록 크게 보이고, 문장완성 응답은 모두 같은
           크기의 말풍선으로 놓입니다.
@@ -196,12 +196,13 @@ function SentenceWall({ summary }: { summary: WallSummary }) {
 
 function getWordStyle(count: number, max: number, index: number) {
   const weight = count / max;
-  const size = Math.round(34 + weight * 48);
-  const viewportSize = Math.round(size * 0.12);
+  const minSize = Math.round(22 + weight * 16);
+  const maxSize = Math.round(24 + weight * 64);
+  const viewportSize = Math.round(maxSize * 0.18);
 
   return {
     color: colors[index % colors.length],
-    fontSize: `clamp(30px, ${viewportSize}vw, ${size}px)`,
+    fontSize: `clamp(${minSize}px, ${viewportSize}vw, ${maxSize}px)`,
     transform: `rotate(${rotations[index % rotations.length]}deg)`,
   };
 }

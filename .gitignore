@@ -43,3 +43,6 @@ next-env.d.ts
 
 #gcp key
 *.json
+
+# unrelated local workspaces
+/console-host-sanctions-console-design/
